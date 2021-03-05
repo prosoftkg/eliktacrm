@@ -17,8 +17,8 @@ use yii\helpers\ArrayHelper;
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-    <?
-   /* if ($model->img) {
+    <?php
+    /* if ($model->img) {
         $img = [Url::base() . '/images/building/' . $model->img];
     } else
         $img = false;*/
@@ -38,7 +38,7 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'stores_amount')->textInput() ?>
 
-    <?
+    <?php
     if ($model->isNewRecord)
         echo $form->field($model, 'object_id')->hiddenInput(['value' => $object])->label(false);
     /*else

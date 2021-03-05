@@ -62,7 +62,6 @@ AppAsset::register($this);
 
 <body>
     <?php $this->beginBody() ?>
-
     <div class="wrap">
         <div class="nav-cover">
             <?php
@@ -135,7 +134,11 @@ AppAsset::register($this);
             <?= $content ?>
         </div>
     </div>
-
+    <?php
+    if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin) {
+        include_once('adminpanel.php');
+    }
+    ?>
     <footer class="footer">
         <div class="container">
             <p>&copy; <?= date('Y') ?> Элитка CRM </p>

@@ -6,7 +6,7 @@ use kartik\select2\Select2;
 use yii\helpers\Url;
 use app\models\Building;
 use yii\helpers\ArrayHelper;
-use app\models\Object;
+use app\models\Objects;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Entry */
@@ -17,9 +17,9 @@ use app\models\Object;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'building_id')->hiddenInput(['value'=> $building_id])->label(false);?>
+    <?= $form->field($model, 'building_id')->hiddenInput(['value' => $building_id])->label(false); ?>
 
-    <?= $form->field($model, 'number')->textInput();?>
+    <?= $form->field($model, 'number')->textInput(); ?>
 
     <?= $form->field($model, 'apartment_amount')->textInput() ?>
 

@@ -113,7 +113,7 @@ class ApartmentController extends Controller
         ], [
             'id' => Json::decode(Yii::$app->request->post('flats'), true)
         ]);
-//        Yii::$app->db->createCommand("UPDATE apartment SET plan_id='$plan' WHERE id IN (".$array.")")->execute();
+        //        Yii::$app->db->createCommand("UPDATE apartment SET plan_id='$plan' WHERE id IN (".$array.")")->execute();
     }
 
 
@@ -195,7 +195,6 @@ class ApartmentController extends Controller
             Yii::$app->db->createCommand()
                 ->update('{{%apartment}}', ['status' => Apartment::STATUS_BOOKED, 'client' => $client->id, 'manager' => Yii::$app->user->id], ['id' => $id])->execute();
             return true;
-
         } else {
             return $this->renderAjax('book', [
                 'deal' => $deal,
@@ -215,7 +214,6 @@ class ApartmentController extends Controller
             ], [
                 'id' => Json::decode(Yii::$app->request->post('flats'), true)
             ]);
-
         } else {
             return $this->renderAjax('plan', [
                 'model' => $model,
@@ -266,7 +264,6 @@ class ApartmentController extends Controller
             $deal->save();
             Yii::$app->db->createCommand()->update('{{%apartment}}', ['status' => Apartment::STATUS_SOLD, 'client' => $clientId, 'manager' => Yii::$app->user->id], ['id' => $id])->execute();
             return "form";
-
         } else {
             return $this->renderAjax('sold', [
                 'deal' => $deal,
@@ -313,7 +310,6 @@ class ApartmentController extends Controller
                     <div class='grey_row row_data'>" . $manager->username . "</div>
                     <div class='grey_row row_label clear'>Клиент</div>
                     <div class='grey_row row_data'>" . $client->fullname . "</div>";
-
         }
         if ($apartment->plan) {
             $row .= "<div class='dialogue_img'>" . Html::img($apartment->plan->getThumbFile()) . "</div>";
@@ -426,50 +422,6 @@ class ApartmentController extends Controller
         $floor_range = '1,5';
         $room_range = '1,3';
 
-        if (Yii::$app->request->get('price_min')) {
-            $price_min_val = Yii::$app->request->get('price_min');
-            $price_min = (int)$price_min_val;
-            $dataProvider->query->joinWith(['object o'], true, 'INNER JOIN')
-                ->andFilterWhere(['o.company_id' => Yii::$app->user->identity->company_id])
-                ->andFilterWhere(['>=', '(object.base_dollar_price * plan.area)', $price_min]);
-        }
-
-        if (Yii::$app->request->get('price_max')) {
-            $price_max_val = Yii::$app->request->get('price_max');
-            $price_max = (int)$price_max_val;
-            $dataProvider->query->joinWith(['object o'], true, 'INNER JOIN')
-                ->andFilterWhere(['<=', '(object.base_dollar_price * plan.area)', $price_max]);
-            //$rowData = $price_min . ',';// . $price_max;
-        }
-
-        if (Yii::$app->request->get('area_min')) {
-            $area_min = (int)Yii::$app->request->get('area_min');
-            $dataProvider->query->andFilterWhere(['>=', 'plan.area', $area_min]);
-        }
-
-        if (Yii::$app->request->get('area_max')) {
-            $area_max = (int)Yii::$app->request->get('area_max');
-            $dataProvider->query->andFilterWhere(['<=', 'plan.area', $area_max]);
-        }
-
-        if (Yii::$app->request->get('floor')) {
-            $floor_range = Yii::$app->request->get('floor');
-            $floor = explode(",", $floor_range);
-            $floor_min = (int)$floor[0];
-            $floor_max = (int)$floor[1];
-            $dataProvider->query->andFilterWhere(['<=', 'floor', $floor_max])
-                ->andFilterWhere(['>=', 'floor', $floor_min]);
-        }
-
-        if (Yii::$app->request->get('rooms')) {
-            $room_range = Yii::$app->request->get('rooms');
-            $room = explode(",", $room_range);
-            $room_min = (int)$room[0];
-            $room_max = (int)$room[1];
-            $dataProvider->query->andFilterWhere(['<=', 'plan.room_count', $room_max])
-                ->andFilterWhere(['>=', 'plan.room_count', $room_min]);
-        }
-
         return $this->render('list', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -480,7 +432,5 @@ class ApartmentController extends Controller
             'floor_range' => $floor_range,
             'room_range' => $room_range,
         ]);
-
     }
-
 }

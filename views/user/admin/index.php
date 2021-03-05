@@ -22,7 +22,7 @@ use yii\widgets\Pjax;
  * @var UserSearch $searchModel
  */
 
-$this->title = Yii::t('user', 'Менеджеры компании');
+$this->title = 'Пользователи';
 $this->params['breadcrumbs'][] = $this->title;
 /*$this->params['breadcrumbs'][] = [
     'label' => 'Добавить менеджеров',
@@ -31,7 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
 ];*/
 
 ?>
+<p class='pull-left'>
+    <?= Html::a('Добавить пользователя', ['create'], ['class' => 'btn btn-success']) ?>
+</p>
 
+<p class='pull-right'>
+    <?= Html::a('Роли', ['/rbac/role/index'], ['class' => 'btn btn-success']) ?>
+</p>
 <?php Pjax::begin() ?>
 
 <?=
@@ -45,8 +51,7 @@ GridView::widget([
         'registration_ip',
         [
             'attribute' => 'created_at',
-            'value' => function ($model)
-            {
+            'value' => function ($model) {
                 if (extension_loaded('intl')) {
                     return Yii::t('user', '{0, date, MMMM dd, YYYY HH:mm}', [$model->created_at]);
                 } else {
@@ -56,8 +61,7 @@ GridView::widget([
         ],
         [
             'header' => Yii::t('user', 'Confirmation'),
-            'value' => function ($model)
-            {
+            'value' => function ($model) {
                 if ($model->isConfirmed) {
                     return '<div class="text-center">
                                 <span class="text-success">' . Yii::t('user', 'Confirmed') . '</span>
@@ -75,8 +79,7 @@ GridView::widget([
         ],
         [
             'header' => Yii::t('user', 'Block status'),
-            'value' => function ($model)
-            {
+            'value' => function ($model) {
                 if ($model->isBlocked) {
                     return Html::a(Yii::t('user', 'Unblock'), ['block', 'id' => $model->id], [
                         'class' => 'btn btn-xs btn-success btn-block',
@@ -94,11 +97,18 @@ GridView::widget([
             'format' => 'raw',
         ],
         [
+            'header' => 'Роль',
+            'value' => function ($model) {
+                if ($roles = Yii::$app->authManager->getRolesByUser($model->id)) {
+                    return key($roles);
+                }
+            },
+        ],
+        [
             'class' => 'yii\grid\ActionColumn',
             'template' => '{update} {delete}',
         ],
     ],
-])
-; ?>
+]); ?>
 
 <?php Pjax::end() ?>

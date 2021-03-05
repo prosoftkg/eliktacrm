@@ -43,7 +43,7 @@ class Entry extends \yii\db\ActiveRecord
             [['building_id', 'number', 'apartment_amount'], 'required'],
             [['building_id', 'number', 'apartment_amount'], 'integer'],
             [['number', 'apartment_amount'], 'compare', 'compareValue' => 0, 'operator' => '>', 'type' => 'number'],
-//            [['number'], 'unique'],
+            //            [['number'], 'unique'],
             ['number', 'unique', 'targetAttribute' => ['building_id', 'number']],
         ];
     }
@@ -72,7 +72,7 @@ class Entry extends \yii\db\ActiveRecord
                     'number' => $i,
                     'entry_id' => $entryId,
                     'object_id' => $object,
-                    'floor' => $floor
+                    'floor' => $floor,
                 ])->execute();
 
             if ($i % $amount == 0) {

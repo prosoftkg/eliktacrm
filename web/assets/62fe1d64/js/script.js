@@ -18,7 +18,7 @@ $('document').ready(function () {
             data: form.serialize(),
             success: function (response) {
                 if (response == true) {
-                    $.pjax.reload({container: '#reload_block'});
+                    $.pjax.reload({ container: '#reload_block' });
                 }
             }
         });
@@ -59,95 +59,95 @@ $('document').ready(function () {
 
 
     $("body").on("click", ".flat_square", function (e) {
-            if (!$(this).hasClass("flat-toggle")) {
-                if ($(e.target).hasClass("room_amount")) return;
-                var dollarPrice = $(this).find(".dollar_price").attr("dollarPrice");
-                var somPrice = $(this).find(".apart_price").attr("somPrice");
-                globalPrice.push(dollarPrice);
-                var entryId = $(this).siblings(".tooltip-text");
-                flats.push($(this).attr("id"));
-                flatStatus = $(this).attr('status');
-                $(this).addClass('flat-toggle');
-                $(".flat_square[status!=" + flatStatus + "]").addClass('inactive');
-                if (flats.length == 1) {
-                    $('.flash-success').css('display', 'none');
-                    if ($(this).hasClass('status-1')) {
+        if (!$(this).hasClass("flat-toggle")) {
+            if ($(e.target).hasClass("room_amount")) return;
+            var dollarPrice = $(this).find(".dollar_price").attr("dollarPrice");
+            var somPrice = $(this).find(".apart_price").attr("somPrice");
+            globalPrice.push(dollarPrice);
+            var entryId = $(this).siblings(".tooltip-text");
+            flats.push($(this).attr("id"));
+            flatStatus = $(this).attr('status');
+            $(this).addClass('flat-toggle');
+            $(".flat_square[status!=" + flatStatus + "]").addClass('inactive');
+            if (flats.length == 1) {
+                $('.flash-success').css('display', 'none');
+                if ($(this).hasClass('status-1')) {
+                    $('.button-sold').css('display', 'inline-block');
+                    $('.button-return').css('display', 'inline-block');
+                }
+                if ($(this).attr('status') == 0) {
+                    if ($(this).find('.apart_price').length != 0) {
+                        $('.button-book').css('display', 'inline-block');
                         $('.button-sold').css('display', 'inline-block');
-                        $('.button-return').css('display', 'inline-block');
+                        $('.button-price').css('display', 'inline-block');
+                        $('.button-agent').css('display', 'inline-block');
+                        $('.button-commercial').css('display', 'inline-block');
+                        $('.button-commercial').attr('href', '/apartment/proposal/' + $('.flat-toggle').attr('id'));
                     }
-                    if ($(this).attr('status') == 0) {
-                        if ($(this).find('.apart_price').length != 0) {
-                            $('.button-book').css('display', 'inline-block');
-                            $('.button-sold').css('display', 'inline-block');
-                            $('.button-price').css('display', 'inline-block');
-                            $('.button-agent').css('display', 'inline-block');
-                            $('.button-commercial').css('display', 'inline-block');
-                            $('.button-commercial').attr('href', '/apartment/proposal/' + $('.flat-toggle').attr('id'));
-                        }
-                        $('.button-plan').css('display', 'inline-block');
-                        $('.button-reserve').css('display', 'inline-block');
+                    $('.button-plan').css('display', 'inline-block');
+                    $('.button-reserve').css('display', 'inline-block');
 
 
-                    }
-                    if ($(this).hasClass('status-2')) {
-                        $('.button-return').css('display', 'inline-block');
-                        $('.button-plan').css('display', 'inline-block');
-                        $('.button-reserve').css('display', 'none');
-                    }
                 }
-
-                else if (flats.length > 1) {
-                    $("#load-content").html("");
-                    if ($(this).hasClass('status-0')) {
-                        $('.button-book').css('display', 'none');
-                        $('.button-sold').css('display', 'none');
-                        $('.button-commercial').css('display', 'none');
-
-                        if ($(this).find('.apart_price')) {
-                            $('.button-price').css('display', 'none');
-                        }
-                    }
-
-                    if ($(this).hasClass('status-1')) {
-                        $('#book-form').css('display', 'none');
-                        $('.button-sold').css('display', 'none');
-                        $('.button-commercial').css('display', 'none');
-                    }
+                if ($(this).hasClass('status-2')) {
+                    $('.button-return').css('display', 'inline-block');
+                    $('.button-plan').css('display', 'inline-block');
+                    $('.button-reserve').css('display', 'none');
                 }
-                globalFlat = $(this);
             }
 
-            else {
-                if ($(e.target).hasClass("room_amount")) return;
-                $(this).addClass("clicked");
-                $(this).removeClass('flat-toggle');
-                $('#book-form').css('display', 'none');
-                flats.splice($.inArray($(this).attr("id"), flats), 1);
-                if (flats.length == 1) {
-                    if ($(this).hasClass('status-1')) {
-                        $('.button-sold').css('display', 'inline-block');
+            else if (flats.length > 1) {
+                $("#load-content").html("");
+                if ($(this).hasClass('status-0')) {
+                    $('.button-book').css('display', 'none');
+                    $('.button-sold').css('display', 'none');
+                    $('.button-commercial').css('display', 'none');
+
+                    if ($(this).find('.apart_price')) {
+                        $('.button-price').css('display', 'none');
                     }
-                    if ($('.flat-toggle').hasClass('status-0')) {
-                        if ($('.flat-toggle').children().length > 1) {
-                            $('.button-book').css('display', 'inline-block');
-                            $('.button-sold').css('display', 'inline-block');
-                            $('.button-commercial').css('display', 'inline-block');
-                            $('.button-price').css('display', 'inline-block');
-                            $('.button-commercial').attr('href', '/apartment/proposal/' + $('.flat-toggle').attr('id'));
-                        }
-                    }
-                    if ($(this).hasClass('status-2')) {
-                        $('.button-return').css('display', 'inline-block');
-                    }
-                }
-                if (flats.length < 1) {
-                    $("#load-content").html("");
-                    $('.button-option').css('display', 'none');
-                    $(".flat_square").removeClass("inactive");
                 }
 
+                if ($(this).hasClass('status-1')) {
+                    $('#book-form').css('display', 'none');
+                    $('.button-sold').css('display', 'none');
+                    $('.button-commercial').css('display', 'none');
+                }
             }
+            globalFlat = $(this);
         }
+
+        else {
+            if ($(e.target).hasClass("room_amount")) return;
+            $(this).addClass("clicked");
+            $(this).removeClass('flat-toggle');
+            $('#book-form').css('display', 'none');
+            flats.splice($.inArray($(this).attr("id"), flats), 1);
+            if (flats.length == 1) {
+                if ($(this).hasClass('status-1')) {
+                    $('.button-sold').css('display', 'inline-block');
+                }
+                if ($('.flat-toggle').hasClass('status-0')) {
+                    if ($('.flat-toggle').children().length > 1) {
+                        $('.button-book').css('display', 'inline-block');
+                        $('.button-sold').css('display', 'inline-block');
+                        $('.button-commercial').css('display', 'inline-block');
+                        $('.button-price').css('display', 'inline-block');
+                        $('.button-commercial').attr('href', '/apartment/proposal/' + $('.flat-toggle').attr('id'));
+                    }
+                }
+                if ($(this).hasClass('status-2')) {
+                    $('.button-return').css('display', 'inline-block');
+                }
+            }
+            if (flats.length < 1) {
+                $("#load-content").html("");
+                $('.button-option').css('display', 'none');
+                $(".flat_square").removeClass("inactive");
+            }
+
+        }
+    }
     );
 
     /*$(document).mouseup(function (e) {
@@ -178,10 +178,10 @@ $('document').ready(function () {
             $.ajax({
                 url: '/apartment/plan',
                 type: 'post',
-                data: {plan: global_plan, flats: JSON.stringify(flats)},
+                data: { plan: global_plan, flats: JSON.stringify(flats) },
                 success: function (data) {
                     flats = [];
-                    $.pjax.reload({container: '#reload_block'});
+                    $.pjax.reload({ container: '#reload_block' });
                 }
             });
         }
@@ -190,17 +190,20 @@ $('document').ready(function () {
         }
     });
 
-    $("body").on("click", ".button-reserve", function () {
+    $("body").on("click", ".button-reserve", function (e) {
+        e.preventDefault();
+        let dis = $(this);
         $.ajax({
             url: '/apartment/reserve',
             type: 'post',
-            data: {plan: global_plan, flats: JSON.stringify(flats)},
+            data: { plan: global_plan, flats: JSON.stringify(flats) },
             success: function () {
                 flats = [];
                 $(".flat-toggle").addClass('status-2').attr('status', 2);
                 $(".flat_square").removeClass("inactive flat-toggle status-0");
                 $("#load-content").html('<div class=flash-success>Квартира зарезервирована</div>');
-
+                $("a.button-return").show();
+                dis.hide();
             }
         });
     });
@@ -210,21 +213,24 @@ $('document').ready(function () {
         $.ajax({
             url: '/entry/remove/' + entryId,
             type: 'post',
-            data: {entryId: entryId},
+            data: { entryId: entryId },
             success: function () {
-                $.pjax.reload({container: '#reload_block'});
+                $.pjax.reload({ container: '#reload_block' });
             }
         });
     });
 
 
-    $("body").on("click", ".button-return", function (e) {
-        e.preventDefault;
+    $("a.button-return").on("click", function (e) {
+        e.preventDefault();
+        let dis = $(this);
         $.ajax({
             url: '/apartment/return',
             type: 'post',
-            data: {plan: global_plan, flats: JSON.stringify(flats)},
+            data: { plan: global_plan, flats: JSON.stringify(flats) },
             success: function () {
+                dis.hide();
+                $('a.button-reserve').show();
                 $(".flat-toggle").removeClass("status-1 status-2").attr('status', 0);
                 $(".flat_square").removeClass("inactive flat-toggle");
                 $("#load-content").html('<div class=flash-success>Квартира возвращена в продажу</div>');
@@ -294,7 +300,7 @@ $('document').ready(function () {
         $.ajax({
             url: '/apartment/data',
             type: 'post',
-            data: {number: numberId},
+            data: { number: numberId },
             success: function (data) {
                 if (data !== false)
                     $('.modal-body').html("<div class='data_content'>" + data + "</div>");
@@ -305,30 +311,30 @@ $('document').ready(function () {
     });
 
     $("body").on("click", ".button-sold", function () {
-            $('#book-form').css('display', 'block');
-            var apartment = $('.flat-toggle').attr('id');
-            var link = '/apartment/sold/' + apartment;
-            var cont = document.getElementById('load-content');
-            var loading = document.getElementById('loading');
-            cont.innerHTML = loading.innerHTML;
-            $.get(link, function (data) {
-                $(cont).html(data);
-            });
-        }
+        $('#book-form').css('display', 'block');
+        var apartment = $('.flat-toggle').attr('id');
+        var link = '/apartment/sold/' + apartment;
+        var cont = document.getElementById('load-content');
+        var loading = document.getElementById('loading');
+        cont.innerHTML = loading.innerHTML;
+        $.get(link, function (data) {
+            $(cont).html(data);
+        });
+    }
     );
 
     $("body").on("click", ".button-book", function () {
-            $('#book-form').css('display', 'block');
-            var apartment = $('.flat-toggle').attr('id');
-            var link = '/apartment/book/' + apartment;
-            var cont = document.getElementById('load-content');
-            var loading = document.getElementById('loading');
-            cont.innerHTML = loading.innerHTML;
-            $.get(link, function (data) {
-                $(cont).html(data);
-                jQuery('#w0-kvdate').kvDatepicker();
-            });
-        }
+        $('#book-form').css('display', 'block');
+        var apartment = $('.flat-toggle').attr('id');
+        var link = '/apartment/book/' + apartment;
+        var cont = document.getElementById('load-content');
+        var loading = document.getElementById('loading');
+        cont.innerHTML = loading.innerHTML;
+        $.get(link, function (data) {
+            $(cont).html(data);
+            jQuery('#w0-kvdate').kvDatepicker();
+        });
+    }
     );
 
     $("body").on("click", ".button-price", function (e) {
@@ -350,10 +356,10 @@ $('document').ready(function () {
         $.ajax({
             url: '/apartment/price',
             type: 'post',
-            data: {PriceCorrector: {usd: usd, kgs: kgs, apartments: flats}},
+            data: { PriceCorrector: { usd: usd, kgs: kgs, apartments: flats } },
             success: function (data) {
                 //location.reload();
-                $.pjax.reload({container: '#reload_block'});
+                $.pjax.reload({ container: '#reload_block' });
                 flats = [];
             }
         });

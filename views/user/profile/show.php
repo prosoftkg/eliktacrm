@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = [
                     <?php endif; ?>
 
                     <?php
-                    if (Yii::$app->user->identity->company_id == 0 && Yii::$app->authManager->checkAccess(Yii::$app->user->id, 'owner')); {
+                    if (Yii::$app->user->identity->company_id == 0 && Yii::$app->authManager->checkAccess(Yii::$app->user->id, 'owner')) {
                         echo Html::a('Добавить компанию', ['/company/create'], ['class' => 'btn btn-success', 'style' => 'color:#fff']);
                     }
                     ?>

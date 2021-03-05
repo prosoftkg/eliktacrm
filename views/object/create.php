@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\bootstrap\Alert;
 
 
 /* @var $this yii\web\View */
@@ -14,8 +15,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model
-    ]) ?>
+    <?php
+    if (Yii::$app->user->identity->company_id) {
+        echo $this->render('_form', [
+            'model' => $model
+        ]);
+    } else {
+        echo Alert::widget([
+            'options' => [
+                'class' => 'alert-warning',
+            ],
+            'body' => 'Вы ещё не <a href="/company/create">добавили компанию</a>!',
+        ]);
+    }
+    ?>
 
 </div>

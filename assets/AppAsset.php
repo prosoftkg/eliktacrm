@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -23,6 +24,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/qtip/jquery.qtip.js',
+        'js/site.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

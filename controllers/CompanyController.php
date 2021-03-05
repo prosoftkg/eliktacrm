@@ -52,6 +52,9 @@ class CompanyController extends Controller
                         'roles' => ['owner'],
                         'actions' => ['view', 'update'],
                         'matchCallback' => function ($rule, $action) {
+                            if (Yii::$app->user->identity->isAdmin) {
+                                return true;
+                            }
                             $model = Company::findOne(['id' => Yii::$app->request->get('id')]);
                             return $model->owner_id == Yii::$app->user->identity->id;
                         }

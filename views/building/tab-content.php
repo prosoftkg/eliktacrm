@@ -33,13 +33,14 @@ use yii\helpers\ArrayHelper;
             ArrayHelper::multisort($floor_apartments, 'number', SORT_ASC);
 
             foreach ($floor_apartments as $mdlApartment) {
+                $status = $mdlApartment->status ?? 0;
                 echo Html::beginTag('div', [
-                    'class' => "flat_square status-{$mdlApartment->status}",
+                    'class' => "flat_square status-{$status}",
                     'flatnum' => $mdlApartment->number,
                     'buildingid' => $mdlEntry->building_id,
                     'entrynum' => $mdlEntry->number,
                     'id' => $mdlApartment->id,
-                    'status' => $mdlApartment->status,
+                    'status' => $status,
                     'floor' => $floor
                 ]);
                 echo Html::tag('span', '#' . $mdlApartment->number, ['class' => 'apart_num']);

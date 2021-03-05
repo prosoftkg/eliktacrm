@@ -43,7 +43,7 @@ class User extends BaseUser
             'email' => 'Эл.почта',
             'created_at' => 'Дата регистрации',
             'created_at' => 'Дата регистрации',
-            ''
+            'password' => 'Пароль',
         ];
     }
 

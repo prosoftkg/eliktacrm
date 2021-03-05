@@ -9,6 +9,8 @@ $db = file_exists(__DIR__ . '/db-local.php') ?
         require(__DIR__ . '/db-local.php')
     ) : require(__DIR__ . '/db.php');
 
+$sendLocalMail = file_exists(__DIR__ . '/db-local.php') ? true : false;
+
 $config = [
     'id' => 'basic',
     'name' => 'Elitka CRM',
@@ -54,7 +56,7 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            'useFileTransport' => false, //set this property to false to send mails to real email addresses
+            'useFileTransport' => $sendLocalMail, //set this property to false to send mails to real email addresses
             //comment the following array to send mail using php's mail function
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
