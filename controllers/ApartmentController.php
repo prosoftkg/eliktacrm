@@ -208,7 +208,6 @@ class ApartmentController extends Controller
         $model = new Plan();
         $request = Yii::$app->getRequest();
         if ($request->isPost) {
-            $plan = Yii::$app->request->post('plan');
             Apartment::updateAll([
                 'plan_id' => Yii::$app->request->post('plan')
             ], [

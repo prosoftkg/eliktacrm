@@ -33,16 +33,26 @@ $config = [
             'enableStrictParsing' => false,
             // Disable r= routes
             'enablePrettyUrl' => true,
-            'rules' => array(
+            'rules' => [
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/apartment',
+                    'extraPatterns' => [
+                        'GET detail' => 'detail',
+                    ],
+                ],
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 'apartment/loadproposal/<id:\d+>/<usr:\d+>' => 'apartment/loadproposal',
-            ),
+            ],
         ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'a-tsLDPUqZz1Dfo9CLZwfKSZBbceF7wX',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -105,6 +115,9 @@ $config = [
                 //'registration' => 'app\controllers\user\RegistrationController',
             ],
             'admins' => ['admin']
+        ],
+        'api' => [
+            'class' => 'app\modules\api\Module',
         ],
     ],
     'params' => $params,

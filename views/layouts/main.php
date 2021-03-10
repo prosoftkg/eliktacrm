@@ -80,21 +80,20 @@ AppAsset::register($this);
                         ['label' => 'Выйти', 'url' => '/user/logout'],
                     ], ['style' => 'color:#fff']
                 ];
-            }
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-right nav-exo'],
-                'items' => [
-                    //['label' => 'Компания', 'url' => ['/company/view','id'=>Yii::$app->user->identity->company_id]],
-                    ['label' => 'Сделки', 'url' => ['/deal/index']],
-                    ['label' => 'Задачи', 'url' => ['/assignment/index']],
-                    ['label' => 'Объекты', 'url' => ['/object/own']],
-                    ['label' => 'Планировки', 'url' => ['/plan/own']],
-                    ['label' => 'Поиск', 'url' => ['/apartment/selector']],
-                    ['label' => 'Запросы', 'url' => ['/request/index']],
-                    ['label' => 'Менеджеры', 'url' => ['/user/admin/manager-list']],
-                    ['label' => 'Каналы продаж', 'url' => ['/reference/index']],
-                    $username,
-                    /*Yii::$app->user->isGuest ? (
+                echo Nav::widget([
+                    'options' => ['class' => 'navbar-nav navbar-right nav-exo'],
+                    'items' => [
+                        //['label' => 'Компания', 'url' => ['/company/view','id'=>Yii::$app->user->identity->company_id]],
+                        ['label' => 'Сделки', 'url' => ['/deal/index']],
+                        ['label' => 'Задачи', 'url' => ['/assignment/index']],
+                        ['label' => 'Объекты', 'url' => ['/object/own']],
+                        ['label' => 'Планировки', 'url' => ['/plan/own']],
+                        ['label' => 'Поиск', 'url' => ['/apartment/selector']],
+                        ['label' => 'Запросы', 'url' => ['/request/index']],
+                        ['label' => 'Менеджеры', 'url' => ['/user/admin/manager-list']],
+                        ['label' => 'Каналы продаж', 'url' => ['/reference/index']],
+                        $username,
+                        /*Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/user/login']]
                 ) : (
                     '<li>'
@@ -106,8 +105,14 @@ AppAsset::register($this);
                         . Html::endForm()
                         . '</li>'
                 )*/
-                ],
-            ]);
+                    ],
+                ]);
+            } else {
+                echo Nav::widget([
+                    'options' => ['class' => 'navbar-nav navbar-right nav-exo'],
+                    'items' => [['label' => 'Войти', 'url' => ['/user/login']]],
+                ]);
+            }
             NavBar::end();
             ?>
         </div>

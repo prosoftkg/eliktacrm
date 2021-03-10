@@ -1,4 +1,5 @@
-<?
+<?php
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -23,7 +24,7 @@ use yii\widgets\ActiveForm;
         ->textInput([
             'disabled' => 'disabled',
             'value' => $mdlApartment->dollar_price ? $mdlApartment->dollar_price : $mdlApartment->getPrice('dollar')
-        ]);?>
+        ]); ?>
     <?= $form->field($mdlProposal, 'prepay'); ?>
     <?= $form->field($mdlProposal, 'apartment')->hiddenInput(['value' => $mdlApartment->id])->label(false); ?>
     <?= $form->field($mdlProposal, 'floor')->hiddenInput(['value' => $floor])->label(false); ?>

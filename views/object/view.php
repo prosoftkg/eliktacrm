@@ -44,8 +44,8 @@ $this->params['breadcrumbs'][] = [
 
             <div class="outer_container">
                 <div class='filler'></div>
-                <span class='object_label'>Цена в долларах: </span>
-                <span class='object_field'><?= $model->base_dollar_price . "({$model->base_som_price}) сом"; ?></span>
+                <span class='object_label'>Цена: </span>
+                <span class='object_field'>$<?= $model->base_dollar_price . " ({$model->base_som_price} сом) за м²"; ?></span>
             </div>
         </div>
 

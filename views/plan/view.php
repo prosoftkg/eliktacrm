@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Plan */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Планировки'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Планировки'), 'url' => ['own']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="plan-view">
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="outer">
             <?php
             $rooms = unserialize($model->rooms);
-            foreach ($rooms as $key => $val):?>
+            foreach ($rooms as $key => $val) : ?>
                 <div class="outer_container">
                     <div class='filler'></div>
                     <span class='object_label'><?= $key; ?></span>
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="general-rooms">
-                Ориентировочная стоимость - <?= $model->room_count; ?>
+                Ориентировочная стоимость - ? <?= $model->room_count; ?>
             </div>
         </div>
     </div>

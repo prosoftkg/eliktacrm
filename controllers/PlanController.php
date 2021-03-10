@@ -112,11 +112,9 @@ class PlanController extends Controller
         $model = new Plan();
 
         if ($model->load(Yii::$app->request->post())) {
-            foreach (Yii::$app->request->post('room') as $val) {
-                $rooms = Yii::$app->request->post('room');
-                $area = Yii::$app->request->post('area');
-                $model->rooms = serialize(array_combine($rooms, $area));
-            }
+            $rooms = Yii::$app->request->post('room');
+            $area = Yii::$app->request->post('area');
+            $model->rooms = serialize(array_combine($rooms, $area));
             $model->owner_id = Yii::$app->user->id;
             $model->company_id = Yii::$app->user->identity->company_id;
             $model->save();

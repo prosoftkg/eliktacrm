@@ -31,7 +31,9 @@ $this->params['breadcrumbs'][] = [
 <script type="text/javascript" src="<?/*= Url::base(); */?>/js/qtip/jquery.qtip.min.js"></script>-->
 
 <div class="building-view">
-    <?= Html::img(Url::base() . '/images/building/' . $model->img, ['class' => 'object_img']); ?>
+    <?php if ($model->img) {
+        echo Html::img(Url::base() . '/images/building/' . $model->img, ['class' => 'object_img']);
+    } ?>
 
     <div class="right-view">
 

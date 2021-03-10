@@ -1,4 +1,5 @@
-<?
+<?php
+
 use app\models\Apartment;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -17,9 +18,9 @@ $company = $apartment->building->object->company;
             echo Html::tag('span', $company->name, ['class' => 'proposal-company-name']);
             echo Html::tag('div', "Адрес: " . $company->address, ['class' => 'proposal-company-contact']);
             echo Html::tag('div', "Контактный телефон: " . $company->phone, ['class' => 'proposal-company-contact']);
-            if (!Yii::$app->user->isGuest && (Yii::$app->user->identity->isAdmin || $auth->getAssignment('owner', Yii::$app->user->id))):
+            if (!Yii::$app->user->isGuest && (Yii::$app->user->identity->isAdmin || $auth->getAssignment('owner', Yii::$app->user->id))) :
                 echo Html::tag('div', "Директор компании: " . Yii::$app->user->identity->profile->name, ['class' => 'proposal-company-contact']);
-            elseif (!Yii::$app->user->isGuest && ($auth->getAssignment('manager', Yii::$app->user->id))):
+            elseif (!Yii::$app->user->isGuest && ($auth->getAssignment('manager', Yii::$app->user->id))) :
                 echo Html::tag('div', "Менеджер: " . Yii::$app->user->identity->profile->name, ['class' => 'proposal-company-contact']);
             endif;
             echo "</div>";
@@ -85,7 +86,7 @@ $company = $apartment->building->object->company;
         <div class="proposal-left-block">
             <?php
             $roomArr = unserialize($apartment->plan->rooms);
-            foreach ($roomArr as $key => $val):?>
+            foreach ($roomArr as $key => $val) : ?>
                 <div class="outer_container">
                     <div class='filler'></div>
                     <span class='object_label'><?= $key; ?></span>
@@ -110,10 +111,10 @@ $company = $apartment->building->object->company;
         <div class="proposal-final-price">Сумма ежемесячных выплат: $<?= $monthlyFee; ?></div>
 
     </div>
-    <? echo Html::tag('span', 'Распечатать', ["class" => "btn button-print"]); ?>
+    <?php echo Html::tag('span', 'Распечатать', ["class" => "btn button-print"]); ?>
 </div>
 
-<?
+<?php
 $script = <<<SCRIPT
 
 $('.button-print').click(function(){
@@ -129,4 +130,3 @@ $this->registerJs($script);
 
 Yii::$app->session->remove('data');
 ?>
-

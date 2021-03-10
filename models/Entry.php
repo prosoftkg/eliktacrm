@@ -24,14 +24,17 @@ class Entry extends \yii\db\ActiveRecord
         return 'entry';
     }
 
-    public function getBuilding()
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
     {
-        return $this->hasOne(Building::className(), ['id' => 'building_id']);
-    }
-
-    public function getApartments()
-    {
-        return $this->hasMany(Apartment::className(), ['entry_id' => 'id'])->orderBy('number');
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'building_id' => Yii::t('app', 'Здание'),
+            'number' => Yii::t('app', 'Номер подъезда'),
+            'apartment_amount' => Yii::t('app', 'Кол-во квартир в этаже'),
+        ];
     }
 
     /**
@@ -48,6 +51,16 @@ class Entry extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getBuilding()
+    {
+        return $this->hasOne(Building::className(), ['id' => 'building_id']);
+    }
+
+    public function getApartments()
+    {
+        return $this->hasMany(Apartment::className(), ['entry_id' => 'id'])->orderBy('number');
+    }
+
     public function afterSave($insert, $changedAttributes)
     {
         $entry = $this->number;
@@ -60,11 +73,11 @@ class Entry extends \yii\db\ActiveRecord
 
         $floor = 1;
         $count = Apartment::find()->where(['building_id' => $building])->count();
-        if (!$count)
+        if (!$count) {
             $count = 0;
+        }
         $fix = $stores * $amount + $count;
         for ($i = $count + 1; $i <= $fix; $i++) {
-
             Yii::$app->db->createCommand()
                 ->insert('apartment', [
                     'entry_num' => $entry,
@@ -79,19 +92,5 @@ class Entry extends \yii\db\ActiveRecord
                 $floor++;
             }
         }
-    }
-
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'building_id' => Yii::t('app', 'Здание'),
-            'number' => Yii::t('app', 'Номер подъезда'),
-            'apartment_amount' => Yii::t('app', 'Кол-во квартир в подъезде'),
-        ];
     }
 }

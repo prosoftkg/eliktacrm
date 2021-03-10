@@ -87,12 +87,12 @@ Asset::register($this);
 
     if (!Yii::$app->user->isGuest && (Yii::$app->user->identity->isAdmin || $auth->getAssignment('owner', Yii::$app->user->id))) : ?>
         <?= Html::tag('span', 'Бронировать', ['class' => 'btn-margin btn button-option button-book', 'status-id' => '1']); ?>
-        <?= Html::a('Планировка', '#', ['class' => 'btn-margin btn button-option button-plan', 'status-id' => '4', /* 'onClick' => "showContent('/apartment/plan');return false" */]); ?>
+        <?= Html::a('Планировка', '#', ['class' => 'btn-margin btn button-option button-plan', 'status-id' => '4',  'onClick' => "showContent('/apartment/plan');return false"]); ?>
         <?= Html::tag('span', 'Сделка завершена', ['class' => 'btn-margin btn button-option button-sold ', 'status-id' => '3']); ?>
         <?= Html::a('Резерв', '#', ['class' => 'btn-margin btn button-reserve button-option', 'status-id' => '2', /* 'onClick' => "showContent('/apartment/reserve');return false" */]); ?>
         <?= Html::a('Вернуть в продажу', '#', ['class' => 'btn-margin btn button-option button-return', 'status-id' => '5', /* 'onClick' => "showContent('/apartment/return');return false" */]); ?>
         <?= Html::tag('span', 'Корректировка цен', ['class' => 'btn-margin btn button-option button-price', 'status-id' => '5']); ?>
-        <?= Html::a('Назначить агента', '#', ['class' => 'btn-margin btn button-option button-agent', 'status-id' => '5', /* 'onClick' => "showContent('/apartment/assignAgent');return false" */]); ?>
+        <?= Html::a('Назначить агента', '#', ['class' => 'btn-margin btn button-option button-agent', 'status-id' => '5', 'onClick' => "showContent('/apartment/assignAgent');return false"]); ?>
     <?=
         Html::tag('span', 'Коммерческое предложение', ['class' => 'btn-margin btn button-option button-commercial', 'status-id' => '5']);
 

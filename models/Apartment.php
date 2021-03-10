@@ -43,7 +43,7 @@ class Apartment extends \yii\db\ActiveRecord
         return [
             [['entry_id', 'entry_num', 'status', 'number', 'building_id', 'manager', 'client', 'object_id', 'floor'], 'safe'],
             [['entry_id', 'entry_num', 'status', 'number', 'building_id', 'floor'], 'integer'],
-            [['dollar_price','som_price'], 'number'],
+            [['dollar_price', 'som_price'], 'number'],
         ];
     }
 
@@ -61,6 +61,60 @@ class Apartment extends \yii\db\ActiveRecord
             'building_id' => Yii::t('app', 'Здание'),
             'floor' => 'Этаж'
         ];
+    }
+
+    public function fields()
+    {
+        $fields = parent::fields();
+        unset($fields['client'], $fields['manager'], $fields['entry_id'], $fields['status'], $fields['number'], $fields['entry_num'], $fields['building_id'], $fields['plan_id'], $fields['object_id']);
+        $fields['room_count'] = function ($model) {
+            return $model->plan->room_count;
+        };
+        $fields['area'] = function ($model) {
+            return $model->plan->area;
+        };
+        $fields['floors'] = function ($model) {
+            return $model->building->stores_amount;
+        };
+        $fields['dollar_price'] = function ($model) {
+            if ($model->dollar_price) {
+                return $model->dollar_price;
+            }
+            return $model->object->base_dollar_price * $model->plan->area;
+        };
+        $fields['som_price'] = function ($model) {
+            if ($model->som_price) {
+                return $model->som_price;
+            }
+            return $model->object->base_som_price * $model->plan->area;
+        };
+        $fields['object_title'] = function ($model) {
+            return $model->object->title;
+        };
+        $fields['base_dollar_price'] = function ($model) {
+            return $model->object->base_dollar_price;
+        };
+        $fields['due'] = function ($model) {
+            return $model->object->due_quarter . ' кв. ' . $model->object->due_year;
+        };
+        $fields['address'] = function ($model) {
+            return $model->building->address;
+        };
+        $fields['company'] = function ($model) {
+            return $model->object->company->name;
+        };
+        $fields['pay_months'] = function ($model) {
+            $month2 = $model->object->due_quarter * 3;
+            $diff = (($model->object->due_year - date('Y')) * 12) + ($month2 - date('m'));
+            return $diff;
+        };
+        $fields['images'] = function ($model) {
+            return [
+                'images/object/' . $model->object->logo,
+                'images/plan/' . $model->plan_id . '/' . $model->plan->img,
+            ];
+        };
+        return $fields;
     }
 
     function getBuilding()
@@ -107,7 +161,7 @@ class Apartment extends \yii\db\ActiveRecord
             throw new \InvalidArgumentException('Only dollar or som currencies available!');
         }
         $field = "{$currency}_price";
-        if (!(double)$this->{$field}) {
+        if (!(float)$this->{$field}) {
             $field = "base_{$currency}_price";
             return $this->building->object->{$field} * $this->plan->area;
         }

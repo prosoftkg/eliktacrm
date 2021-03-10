@@ -202,7 +202,7 @@ $('document').ready(function () {
                 $(".flat-toggle").addClass('status-2').attr('status', 2);
                 $(".flat_square").removeClass("inactive flat-toggle status-0");
                 $("#load-content").html('<div class=flash-success>Квартира зарезервирована</div>');
-                $("a.button-return").show();
+                //$("a.button-return").show();
                 dis.hide();
             }
         });
@@ -230,7 +230,7 @@ $('document').ready(function () {
             data: { plan: global_plan, flats: JSON.stringify(flats) },
             success: function () {
                 dis.hide();
-                $('a.button-reserve').show();
+                // $('a.button-reserve').show();
                 $(".flat-toggle").removeClass("status-1 status-2").attr('status', 0);
                 $(".flat_square").removeClass("inactive flat-toggle");
                 $("#load-content").html('<div class=flash-success>Квартира возвращена в продажу</div>');
