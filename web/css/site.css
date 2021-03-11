@@ -1,0 +1,1222 @@
+html,
+body {
+    height: 100%;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto 0px;
+    padding: 0 0 0px;
+}
+
+.wrap > .container {
+    padding: 10px 15px 20px;
+    width: 1060px;
+}
+
+nav .container, footer .container {
+    width: 1060px;
+}
+
+.nav-exo {
+    font-family: "Exo 2", "arial", sans-serif;
+    font-size: 16px;
+}
+
+.nav-exo > li > a {
+    color: rgb(255, 203, 5) !important;
+    padding: 15px 5px !important;
+}
+
+.footer {
+    background-color: #848484;
+    padding: 20px 0 25px;
+    text-align: center;
+    color: #fff;
+    font-family: "Exo 2", "arial", sans-serif;
+    font-size: 16px;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    padding-left: 5px;
+}
+
+a.asc:after {
+    content: /*"\e113"*/ "\e151";
+}
+
+a.desc:after {
+    content: /*"\e114"*/ "\e152";
+}
+
+.sort-numerical a.asc:after {
+    content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+    content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+    content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+    content: "\e156";
+}
+
+.grid-view th {
+    white-space: nowrap;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+.clear {
+    clear: both;
+}
+
+.flat_square {
+    border: 4px solid #82c6ec;
+    float: left;
+    width: 110px;
+    height: 70px;
+    margin: 5px 5px 0px 0;
+    padding-left: 10px;
+    line-height: 20px;
+    position: relative;
+}
+
+.apart_num {
+    position: absolute;
+    left: 4px;
+    bottom: 0px;
+    /*border: 1px solid royalblue;*/
+    font-size: 11px;
+}
+
+.apart_area {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    font-size: 12px;
+}
+
+.floor_num {
+    float: left;
+    font-size: 20px;
+    margin: 0 10px 0 5px;
+    height: 75px;
+    line-height: 75px;
+    width: 15px;
+}
+
+.room_amount {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    /* border: 1px solid royalblue; */
+    background-color: #E3E487;
+    border-radius: 25px;
+    font-size: 12px;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    line-height: 20px;
+}
+
+.flat_square span {
+    cursor: pointer;
+}
+
+.flat_plan {
+    border: 1px solid #ccc;
+    float: left;
+    width: 100px;
+    height: 70px;
+    margin: 0px 4px 4px 0;
+    text-align: center;
+    line-height: 40px;
+}
+
+.flat_plan span {
+    cursor: pointer;
+}
+
+.entry_block {
+    border: 1px solid #ccc;
+    float: left;
+    width: 185px;
+    height: 100px;
+    margin: 2px 2px 0 0;
+    text-align: center;
+    padding: 15px 0 0 0;
+}
+
+.entry_general {
+    float: left;
+    margin-right: 30px;
+}
+
+.add_apartment {
+    cursor: pointer;
+}
+
+.tooltip-text {
+    background: #f6f6f6;
+    font-size: 14px;
+    z-index: 1000;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+.flat-wrap {
+    position: relative;
+    width: auto;
+    display: table;
+    float: left;
+}
+
+.tooltip-text li {
+    padding-left: 1em;
+    text-indent: -.7em;
+    list-style: none;
+    cursor: pointer;
+}
+
+.tooltip-text .booking:before {
+    content: '■';
+    color: orange; /* or whatever color you prefer */
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+.tooltip-text .reserve:before {
+    content: '■';
+    color: #0549ae; /* or whatever color you prefer */
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+.tooltip-text .sold:before {
+    content: '■';
+    color: red; /* or whatever color you prefer */
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+#flat-area {
+    float: left;
+    width: 60px;
+    border: 1px solid #ccc;
+    height: 40px;
+}
+
+.status-1 {
+    background-image: url("../images/site/booked_bg.png");
+    background-repeat: repeat-x;
+    background-size: auto 105px;
+    border: 4px solid #82c6ec;
+}
+
+.inactive {
+    opacity: 0.3;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.status-2 {
+    background: #E5B6E5;
+    border: 4px solid #E5B6E5;
+}
+
+.status-3 {
+    background: #A9CD67;
+    border: 4px solid #A9CD67;
+}
+
+.flat_aligner {
+    float: left;
+}
+
+.planing {
+    display: inline-block;
+}
+
+.plan-block {
+    float: left;
+    width: 152px;
+    margin: 0px 19px 15px 0;
+    text-align: center;
+    border: 1px solid #ccc;
+    height: 180px;
+    background-color: #fff;
+}
+
+.plan-block img {
+    width: 100%;
+}
+
+.wrapper {
+    margin-top: 20px;
+}
+
+.flat-fader {
+    display: none;
+}
+
+.plan-title {
+    display: block;
+    margin-top: 4px;
+    height: 45px;
+}
+
+.plan_details {
+
+    left: 10px;
+    top: 0;
+}
+
+.plan-select {
+    color: dodgerblue;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.other {
+
+}
+
+.plan-selected {
+    border: 2px solid royalblue;
+}
+
+.flat-toggle {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: 4px solid royalblue;
+}
+
+.inactive-link {
+    pointer-events: none;
+}
+
+#load-content {
+    display: block;
+    overflow: hidden;
+}
+
+.add_room {
+    -moz-box-shadow: inset 0px 1px 0px 0px #3dc21b;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #3dc21b;
+    box-shadow: inset 0px 1px 0px 0px #3dc21b;
+    background-color: #44c767;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #18ab29;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 15px;
+    padding: 8px 10px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2f6627;
+    display: block;
+    clear: both;
+}
+
+.add_room:hover {
+    background-color: #5cbf2a;
+}
+
+.add_room:active {
+    position: relative;
+    top: 1px;
+}
+
+.form-room {
+    width: 200px;
+    float: left;
+    margin-right: 15px;
+    clear: both;
+    margin-bottom: 10px;
+}
+
+.room_group {
+    clear: both;
+    margin-bottom: 30px;
+}
+
+.form-area {
+    width: 120px;
+    margin-right: 15px;
+    float: left;
+}
+
+.remove_field {
+    clear: both;
+}
+
+.input_fields_wrap {
+    background-color: #f6f6f6;
+    overflow: hidden;
+    padding: 15px;
+    border: 1px solid #ccc;
+}
+
+.general_heading {
+    font-family: 'Exo 2', sans-serif;
+    font-family: 22px;
+    margin-top: 0 !important;
+}
+
+.object_img {
+    float: left;
+    margin-right: 15px;
+    width: 400px;
+}
+
+.right-view {
+    display: inline-block;
+    width: 555px;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.object_pic {
+    height: 250px;
+}
+
+.minor_heading_clean {
+    font-size: 19px;
+    font-weight: 600;
+    color: #000;
+    margin-top: 0;
+    padding-bottom: 10px;
+}
+
+.minor_heading {
+    font-size: 19px;
+    font-weight: 600;
+    color: #000;
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.object-view, .building-view, .apartment-index, .deal-index, .assignment-index,.deal-view {
+    font-family: "Exo 2", "arial", sans-serif;
+}
+.deal-view th
+{
+    font-size: 15px;
+}
+.apartment-index {
+    font-size: 16px;
+}
+
+.apartment-index label {
+    display: block;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.minor-label {
+    font-weight: normal;
+}
+
+.outer {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    position: relative;
+    clip: auto;
+    overflow: hidden;
+    width: 360px;
+}
+
+.outer_container {
+    position: relative;
+    text-align: right;
+    white-space: nowrap;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.filler {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-bottom: 1px dotted #333;
+    height: 75%;
+}
+
+.object_label {
+    background: white;
+    float: left;
+    margin-right: 20px;
+    padding-right: 4px;
+    position: relative;
+    font-weight: 600;
+}
+
+.object_field {
+    background: white;
+    padding-left: 4px;
+    position: relative;
+    font-weight: 600;
+}
+
+.object-description {
+    margin-top: 20px;
+    font-size: 15px;
+    color: #3b3b3b;
+}
+
+.medium_heading {
+    font-size: 20px;
+    font-family: "Exo 2", "arial", sans-serif;
+}
+
+.building-block {
+    border: 1px solid #ccc;
+    width: 315px;
+    padding: 10px 15px 15px;
+    text-align: center;
+    float: left;
+    margin-right: 36px;
+    height: 390px;
+}
+
+.building-block img {
+    width: 100%;
+}
+
+.thumb {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.thumb img.portrait {
+    width: 100%;
+    height: auto;
+}
+
+.thumb img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: auto;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.building-block:nth-of-type(3n) {
+    margin-right: 0;
+}
+
+.building-title {
+    color: #000;
+    font-size: 15px;
+    min-height: 50px;
+    display: block;
+}
+
+.object-description p {
+    line-height: 20px;
+}
+
+.bread_bg {
+    background-color: #595959;
+    font-family: "Exo 2", "arial", sans-serif;
+    overflow: hidden;
+    display: block;
+    margin: 50px 0 20px;
+    padding: 0px 0px;
+}
+
+.bread_bg .breadcrumb {
+    background-color: transparent;
+    padding: 10px 0px;
+    margin-bottom: 0px;
+    font-size: 16px;
+    line-height: 35px;
+    float: left;
+    width: 100%;
+}
+
+.bread_bg .breadcrumb a {
+    color: #ffffff;
+}
+
+.bread_bg .breadcrumb > .active {
+    color: #fff;
+}
+
+.bread_bg .breadcrumb > li + li:before {
+    color: #ccc;
+    content: "⟫";
+}
+
+.bread_aligner {
+    width: 1000px;
+    margin: 0px auto;
+    font-size: 15px;
+}
+
+.lower_part {
+    text-align: left;
+    position: relative;
+}
+
+.entry_count {
+    position: absolute;
+    left: 0px;
+    top: 10px;
+}
+
+.apartment_count {
+    position: absolute;
+    right: 0px;
+    top: 10px;
+}
+
+.area_price {
+    clear: both;
+    text-align: left;
+    margin-top: 10px;
+
+}
+
+.wrap_nums {
+    display: block;
+    height: 40px;
+    border-bottom: 1px solid #ccc;
+}
+
+ol {
+    display: block;
+    padding: 0 0 0 26px;
+    list-style: none;
+    overflow: hidden;
+    counter-reset: numList;
+}
+
+ol li {
+    position: relative;
+    margin-top: 10px;
+    line-height: 23px;
+}
+
+ol li:before {
+    counter-increment: numList;
+    content: counter(numList);
+    float: left;
+    position: absolute;
+    left: -26px;
+    text-align: center;
+    color: #000;
+    line-height: 23px;
+    width: 23px;
+    height: 23px;
+    background: #f6f6f6;
+    -moz-border-radius: 999px;
+    border-radius: 999px
+}
+
+.left_ol {
+    font-weight: 600;
+    padding-left: 15px;
+}
+
+.right_ol {
+    float: right;
+    color: #777;
+}
+
+.list-object-title {
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.object_index_left {
+
+}
+
+.object-block {
+    width: 49%;
+    overflow: hidden;
+    float: left;
+    margin-right: 2%;
+    font-family: "Exo 2", "arial", sans-serif;
+
+}
+
+.object_index_left {
+    width: 50%;
+    float: left;
+    padding: 10px;
+    border: 1px solid #ccc;
+    height: 200px;
+}
+
+.object-block:nth-of-type(2n) {
+    margin-right: 0;
+}
+
+.object_index_right {
+    width: 50%;
+    float: right;
+    overflow: hidden;
+}
+
+.object_index_pic {
+    width: auto;
+    height: 200px;
+    margin-left: -35px;
+    position: relative;
+}
+
+.object-intro {
+    text-align: center;
+}
+
+.object_index_label {
+    font-size: 16px;
+}
+
+.object_map {
+    margin-top: 15px;
+    clear: both;
+    width: 100%;
+    display: inline-block;
+}
+
+.apart_price {
+    right: 5px;
+    top: 25px;
+    position: absolute;
+    font-size: 11px;
+}
+
+.dollar_price {
+    right: 4px;
+    bottom: 0px;
+    position: absolute;
+    font-size: 11px;
+}
+
+.tab-content {
+    padding: 15px 0 0;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: #ffffff;
+    cursor: default;
+    background-color: #0760B9;
+    border: 1px solid #ddd;
+    border-radius: 0;
+
+}
+
+.nav-tabs > a {
+    border-radius: 0;
+}
+
+.nav > a:hover {
+    border-radius: 0;
+}
+
+.nav-tabs > li {
+    border: 1px solid #ccc;
+    margin-right: 15px;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+
+}
+
+.nav-tabs > li > a {
+    margin-right: 0 !important;
+    font-size: 16px;
+    color: #000;
+}
+
+.btn-margin {
+    margin: 5px 2px 5px 0;
+    background-color: #0066CC;
+    color: #ffffff;
+    display: none;
+}
+
+.form_block_right {
+    background-color: #f6f6f6;
+    display: inline-block;
+    width: 415px;
+    padding: 0 15px 15px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    float: right;
+}
+
+.btn-margin:hover, .btn-margin:focus, .btn-margin.focus {
+    background-color: #44950e;
+    color: #fff !important;
+}
+
+.tooltip-text .btn {
+    display: none;
+}
+
+.tab-margin {
+    margin-top: 20px;
+    clear: both;
+    display: inline-block;
+    width: 100%;
+}
+
+.grey_row {
+    background-color: #f6f6f6;
+    color: #000;
+    float: left;
+    padding: 8px 12px;
+    float: left;
+    margin: 0px 10px 10px 0;
+    font-size: 15px;
+}
+
+.modal-body {
+    overflow: hidden;
+}
+
+.modal-header {
+    text-align: center;
+}
+
+.dialogue_img img {
+    width: 100%;
+}
+
+.row_label {
+    width: 130px;
+}
+
+.row_data {
+    width: 250px;
+}
+
+.data_content {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.datepicker {
+    margin-top: 50px;
+}
+
+.proposal-prepay {
+    font-size: 16px;
+}
+
+.proposal-base-price {
+    font-size: 16px;
+}
+
+.proposal-apartment-number {
+    font-size: 16px;
+}
+
+.proposal-object-logo {
+    float: left;
+    margin: 0 10px 0 0;
+}
+
+.proposal-building-img {
+    float: left;
+    width: 100%;
+}
+
+.proposal-final-price {
+    font-size: 16px;
+}
+
+.proposal-period {
+    font-size: 16px;
+}
+
+.proposal-apartment-plan {
+    margin: 10px;
+}
+
+.button-print {
+    background-color: royalblue;
+    margin-top: 20px;
+}
+
+.prop-room-count {
+
+}
+
+.prop-room-area {
+
+}
+
+.prop-room-area {
+
+}
+
+.proposal-wrap {
+    font-family: "Arial", sans-serif;
+    font-size: 16px;
+    width: 794px;
+    margin: 0 auto;
+}
+
+@media print {
+    @media print {
+        html, body {
+            height: 99%;
+        }
+    }
+    /* ... the rest of the rules ... */
+}
+
+.proposal-wrap div {
+    line-height: 30px;
+}
+
+.proposal-left-block {
+    float: left;
+    width: 50%;
+}
+
+.proposal-right-block {
+    float: right;
+    padding: 0 15px;
+}
+
+.final_date {
+    margin: 15px 0;
+    display: block;
+}
+
+.proposal-plan-img {
+    height: 180px;
+}
+
+.proposal-wrap .object_label, .proposal-wrap .object_field {
+    font-weight: normal;
+}
+
+.proposal-company-logo {
+    width: 250px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    float: left;
+}
+
+.proposal-header {
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.proposal-company-name {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.proposal-right-block .outer {
+    width: 300px;
+}
+
+.proposal_company_info {
+    float: right;
+    text-align: right;
+}
+
+.object-title-header {
+    width: 220px;
+}
+
+.object-title-content {
+    min-width: 170px !important;
+}
+
+.plan-pic {
+    max-height: 120px;
+}
+
+.plan-view, .company-view {
+    font-family: "Exo 2", "arial", sans-serif;
+}
+
+.general-rooms {
+    font-size: 16px;
+}
+
+.object-building {
+    clear: both;
+    margin: 20px 0 20px;
+    display: inline-block;
+}
+
+.payment-label {
+    width: 100px;
+    display: inline-block;
+    font-weight: 600;
+    font-family: "Exo 2", "arial", sans-serif;
+}
+
+.payment-date {
+    background-color: #f6f6f6;
+    padding: 4px;
+}
+
+.payment-sum {
+    padding: 4px;
+}
+
+.payment-remove {
+    margin: 0 10px;
+}
+
+.form-book-date {
+    display: none;
+}
+
+.slider.slider-horizontal {
+    width: 740px;
+    margin: 0 15px;
+}
+
+.room_range_slider .slider.slider-horizontal {
+    width: 500px;
+}
+
+.range-slider-wrap {
+    margin: 20px 0;
+    border-radius: 3px;
+}
+
+/*.client_name_value{
+    display: none;
+}*/
+.sked-index {
+    font-family: "Exo 2", "arial", sans-serif;
+}
+
+.control-label {
+    font-weight: 600;
+}
+
+.result-wrapper {
+    padding: 10px;
+    font-size: 14px;
+}
+
+.apart-selector {
+    border-radius: 0;
+    width: 100px;
+    font-size: 15px;
+}
+
+.range-cover {
+    padding: 0 0 15px;
+    background-color: #fff;
+    display: inline-block;
+    border-radius: 3px;
+    clear: both;
+    height: 100px;
+}
+
+.shorten_input {
+    width: 100px;
+    display: inline-block;
+    float: left;
+    border: 1px solid #3b3b3b;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 16px;
+}
+
+.minor-label {
+    float: left;
+    margin: 6px;
+}
+
+.left-apart-block {
+    float: left;
+    margin-right: 30px;
+}
+
+.company_logo {
+    width: 400px;
+    float: left;
+    border: 1px solid #ccc;
+    margin: 0 20px 0 0;
+}
+
+.company-view-item {
+    line-height: 30px;
+    font-size: 18px;
+}
+
+.deal-index thead th {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border-color: #ccc;
+}
+.assignment-block
+{
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-top: 15px;
+}
+.assignment-date{
+    float: left;
+    display: inline-block;
+    margin-right: 10px;
+    width: 200px;
+    color: #A52220;
+    text-transform: uppercase;
+}
+.assignment_right
+{
+    display: inline-block;
+    font-size: 15px;
+}
+.assignment-title
+{
+    text-transform: uppercase;
+    color: #888;
+}
+.assignment-description
+{
+    margin-top: 10px;
+}
+.assignment-padder
+{
+    position: relative;
+}
+.assignment-remove-button
+{
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    top:0;
+    right: 0;
+    background: url("../images/site/remove-link.png") no-repeat 0 0;
+    cursor: pointer;
+}
+.bread_central
+{
+    width: 1020px;
+    margin: 0 auto;
+}
+.item-navigation
+{
+    float: right;
+}
+
+.bread-right-link{
+    float: right;
+    font-size: 13px;
+    list-style-type: square;
+}
+.bread_bg .breadcrumb > li + li.bread-right-link:before
+{
+    content: "";
+}
+
+.bread-right-link a
+{
+    color: rgb(173,255,47)!important;
+}
+.chess-block
+{
+    display: block;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.profile-view
+{
+    font-family: "Exo 2", "arial", sans-serif;
+    font-size: 16px;
+    line-height: 30px;
+}
+.navbar-brand
+{
+    font-family: "Exo 2","arial",sans-serif;
+    color: #fff!important;
+    text-transform: uppercase;
+    font-size: 30px;
+}
+.w100px{width:100px;}
+.admin-panel{
+    background-color: #eaeaea;
+    box-shadow: 0 0 2px #777;
+    color: #676767;
+    height: 100%;
+    padding-top: 16px;
+    position: fixed;
+    right: 0;
+    top:0;
+    width: 40px;
+    z-index: 2000;
+}
+.admin-panel ul{list-style-type: none;
+    padding: 0;margin-top: 28px;}
+.admin-panel ul li{ margin: 10px 0;}
+.admin-panel ul li a{padding: 5px 0 5px 13px; text-decoration: none; white-space: nowrap;}
+.panel-opened{width: 140px;}
+.adminicon{color:#3a5a96;; padding-right: 13px;}
+.adminicon:hover, a:hover .adminicon{cursor:pointer;color:#1e2d4c;}
+.tooltiphide .tooltip{display:none !important;}
+.adminpanel{background-color: #000;}
+.adminpanel a{color: #fff;}

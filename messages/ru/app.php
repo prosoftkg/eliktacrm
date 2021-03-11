@@ -1,8 +1,5 @@
 <?php
-<<<<<<< HEAD
-=======
 
->>>>>>> 9c254307b007654eb445701c74808032f4842f71
 /**
  * Message translations.
  *
@@ -21,17 +18,14 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-<<<<<<< HEAD
-    'Update'=>'Редактировать',
-    'Delete'=>'Удалить',
-    'Create'=>'Добавить',
-    'Assignments'=>'Задачи',
-    'Are you sure you want to delete this item?'=>'Вы уверенны что хотите удалить?',
-=======
     'Update' => 'Редактировать',
     'Delete' => 'Удалить',
     'Create' => 'Добавить',
     'Assignments' => 'Задачи',
     'Are you sure you want to delete this item?' => 'Вы уверенны что хотите удалить?',
->>>>>>> 9c254307b007654eb445701c74808032f4842f71
+    'Update' => 'Редактировать',
+    'Delete' => 'Удалить',
+    'Create' => 'Добавить',
+    'Assignments' => 'Задачи',
+    'Are you sure you want to delete this item?' => 'Вы уверенны что хотите удалить?',
 ];

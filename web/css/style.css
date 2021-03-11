@@ -1,0 +1,140 @@
+html,
+body {
+    height: 100%;
+}
+
+.proposal-prepay {
+    font-size: 16px;
+}
+
+.proposal-base-price {
+    font-size: 16px;
+}
+
+.proposal-apartment-number {
+    font-size: 16px;
+}
+
+.proposal-object-logo {
+    float: left;
+    margin: 0 10px 0 0;
+}
+
+.proposal-building-img {
+    float: left;
+    width: 100%;
+}
+
+.proposal-final-price {
+    font-size: 16px;
+}
+
+.proposal-period {
+    font-size: 16px;
+}
+
+.proposal-apartment-plan {
+    margin: 10px;
+}
+
+.button-print {
+    background-color: royalblue;
+}
+
+.prop-room-count{
+
+}
+.prop-room-area{
+
+}
+.prop-room-area{
+
+}
+.proposal-wrap
+{
+    font-family: "Exo 2", "arial", sans-serif;
+    font-size: 16px;
+    width: 794px;
+    margin: 0 auto;
+}
+
+.proposal-wrap div
+{
+    line-height: 30px;
+}
+.proposal-left-block
+{
+    float: left;
+    width: 50%;
+}
+
+.proposal-right-block
+{
+    float: right;
+    padding: 0 15px;
+}
+.final_date
+{
+    margin: 15px 0;
+    display: block;
+}
+.proposal-plan-img
+{
+    height: 180px;
+}
+.proposal-wrap .object_label, .proposal-wrap .object_field
+{
+    font-weight: normal;
+}
+.proposal-company-logo
+{
+    width: 250px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    float: left;
+}
+.proposal-header
+{
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+.proposal-company-name
+{
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.outer {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    position: relative;
+    clip: auto;
+    overflow: hidden;
+    width: 300px;
+}
+
+.outer_container {
+    position: relative;
+    text-align: right;
+    white-space: nowrap;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.filler {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-bottom: 1px dotted #333;
+    height: 75%;
+}
+
+@media print {
+  #print_area {
+      max-width: 297mm;
+
+  }
+  /* ... the rest of the rules ... */
+}
+
