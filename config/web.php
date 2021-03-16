@@ -119,6 +119,9 @@ $config = [
         'api' => [
             'class' => 'app\modules\api\Module',
         ],
+        'apt' => [
+            'class' => 'app\modules\apt\Module',
+        ],
     ],
     'params' => $params,
 ];

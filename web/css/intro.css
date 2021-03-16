@@ -387,4 +387,12 @@ body {
     margin-bottom: 20px;
     padding: 25px 25px 0;
 }
-
+.intro_login{
+    color: #dddb44;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+a.intro_login:hover{
+    color: #dddb44;
+}

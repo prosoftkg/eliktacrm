@@ -81,7 +81,7 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionLogin()
+    /*     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
@@ -94,7 +94,7 @@ class SiteController extends Controller
         return $this->render('login', [
             'model' => $model,
         ]);
-    }
+    } */
 
     /**
      * Logout action.
@@ -137,9 +137,7 @@ class SiteController extends Controller
         $area = Yii::$app->request->post('area');
 
         Apartment::find()->joinWith(['plan a'], true, 'INNER JOIN')->where(['a.category' => $area])->all();
-        return $this->render('selectionResult', [
-
-        ]);
+        return $this->render('selectionResult', []);
     }
 
     /**
@@ -151,6 +149,4 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
-
-
 }
