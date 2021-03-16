@@ -26,6 +26,11 @@ class BaseController extends ActiveController
         unset($behaviors['authenticator']);
         $behaviors['corsFilter'] = [
             'class' => Cors::className(),
+            'cors'  => [
+                'Origin'                           => ['*'],
+                'Access-Control-Allow-Credentials' => true,
+                'Access-Control-Max-Age'           => 3600,
+            ],
         ];
         // re-add authentication filter
         $behaviors['authenticator'] = $auth;
