@@ -22,10 +22,15 @@ class BaseController extends ActiveController
         ], parent::behaviors()); */
 
         $behaviors = parent::behaviors();
+        $auth = $behaviors['authenticator'];
         unset($behaviors['authenticator']);
         $behaviors['corsFilter'] = [
             'class' => Cors::className(),
         ];
+        // re-add authentication filter
+        $behaviors['authenticator'] = $auth;
+        // avoid authentication on CORS-pre-flight requests (HTTP OPTIONS method)
+        $behaviors['authenticator']['except'] = ['options'];
         $behaviors['contentNegotiator'] = [
             'class' => ContentNegotiator::className(),
             'formats' => [
