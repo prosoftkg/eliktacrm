@@ -38,7 +38,7 @@ class ApartmentController extends BaseController
         $similars = Apartment::find()->where(['object_id' => $model->object_id, 'plan_id' => $model->plan_id])->andWhere(['<>', 'id', $model->id])->limit(6)->all();
         $similar = [];
         foreach ($similars as $sim) {
-            $similar[] = ['id' => $sim->id, 'img' => $sim->plan->img];
+            $similar[] = ['id' => $sim->id, 'img' => 'images/plan/' . $sim->plan_id . '/' . $sim->plan->img];
         }
         return [
             'id' => $model->id,
