@@ -174,11 +174,12 @@ $('document').ready(function () {
 
     $(document).on("click", ".plan_send", function (e) {
         e.preventDefault();
+        let objectId = $('.js_minor_heading').attr('object');
         if (global_plan > 0) {
             $.ajax({
                 url: '/apartment/plan',
                 type: 'post',
-                data: { plan: global_plan, flats: JSON.stringify(flats) },
+                data: { plan: global_plan, flats: JSON.stringify(flats), object_id: objectId },
                 success: function (data) {
                     flats = [];
                     $.pjax.reload({ container: '#reload_block' });

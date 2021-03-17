@@ -39,6 +39,7 @@ $config = [
                     'controller' => 'api/apartment',
                     'extraPatterns' => [
                         'GET detail' => 'detail',
+                        'GET filter-count' => 'filter-count',
                     ],
                 ],
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',

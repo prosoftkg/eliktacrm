@@ -48,4 +48,8 @@ class ApartmentController extends BaseController
             'similar' => $similar
         ];
     }
+
+    public function actionFilterCount()
+    {
+    }
 }

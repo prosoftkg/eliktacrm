@@ -17,9 +17,9 @@ use Imagine\Image\Point;
  * @property integer $id
  * @property string $title
  * @property string $logo
- * @property double $base_dollar_price
- * @property double $base_som_price
- * @property string $city
+ * @property float $base_dollar_price
+ * @property float $base_som_price
+ * @property integer $city
  * @property integer $due_quarter
  * @property integer $due_year
  * @property string $description
@@ -63,6 +63,11 @@ class Objects extends \yii\db\ActiveRecord
     public function getBuilding()
     {
         return $this->hasMany(Building::className(), ['object_id' => 'id']);
+    }
+
+    public function getApartments()
+    {
+        return $this->hasMany(Apartment::className(), ['object_id' => 'id']);
     }
 
     /**
@@ -111,6 +116,17 @@ class Objects extends \yii\db\ActiveRecord
             FileHelper::createDirectory($path);
             $this->file->saveAs($path . '/' . $imageName);
             Image::thumbnail($path . '/' . $imageName, 500, 300)->save($path . '/' . $imageName, ['quality' => 100]);
+        }
+
+        if ($insert || !empty($changedAttributes['base_dollar_price']) || !empty($changedAttributes['base_som_price'])) {
+            $apts = Apartment::find()->where(['object_id' => $this->id, 'base_dollar_price_custom' => null])->with('plan')->all();
+            foreach ($apts as $apt) {
+                if ($apt->plan) {
+                    $apt->dollar_price = $this->base_dollar_price * $apt->plan->area;
+                    $apt->som_price = $this->base_som_price * $apt->plan->area;
+                    $apt->save();
+                }
+            }
         }
     }
 }
