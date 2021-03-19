@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\file\FileInput;
 use yii\helpers\Url;
+use app\models\Plan;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Plan */
@@ -25,6 +26,12 @@ use yii\helpers\Url;
         ]
     ]); ?>
 
+    <?php
+    echo $form->field($model, 'comfort_class')
+        ->dropDownList(
+            Plan::$comfort_class // Flat array ('id'=>'label')
+            //['prompt' => ''] // options
+        ); ?>
     <?= $form->field($model, 'area')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'room_count')->textInput(['maxlength' => true]) ?>
@@ -47,7 +54,7 @@ use yii\helpers\Url;
 
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

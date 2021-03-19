@@ -40,6 +40,19 @@ $this->params['breadcrumbs'][] = [
         <h1 class="minor_heading js_minor_heading" company="<?= $model->object->company_id; ?>" object="<?= $model->object->id; ?>"><?= Html::encode($this->title) ?></h1>
 
         <div class="outer">
+
+            <div class="outer_container">
+                <div class='filler'></div>
+                <span class='object_label'>Срок: </span>
+                <span class='object_field'><?= $model->due_quarter . " квартал " . $model->due_year; ?></span>
+            </div>
+
+            <div class="outer_container">
+                <div class='filler'></div>
+                <span class='object_label'>Сдан: </span>
+                <span class='object_field'><?= $model->is_ready ? 'да' : 'нет' ?></span>
+            </div>
+
             <div class="outer_container">
                 <div class='filler'></div>
                 <span class='object_label'>Адреc: </span>

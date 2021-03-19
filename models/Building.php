@@ -21,6 +21,9 @@ use Imagine\Image\Point;
  * @property string $address
  * @property string $description
  * @property integer $stores_amount
+ * @property integer $due_quarter
+ * @property integer $due_year
+ * @property boolean $is_ready
  */
 class Building extends \yii\db\ActiveRecord
 {
@@ -40,8 +43,8 @@ class Building extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'address', 'description', 'stores_amount'], 'required'],
-            [['object_id', 'stores_amount'], 'integer'],
+            [['title', 'address', 'description', 'due_quarter', 'due_year', 'stores_amount'], 'required'],
+            [['object_id', 'stores_amount', 'due_quarter', 'due_year', 'is_ready'], 'integer'],
             [['object_id', 'img'], 'safe'],
             [['file'], 'file'],
             [['title', 'img', 'address'], 'string', 'max' => 255],
@@ -62,6 +65,9 @@ class Building extends \yii\db\ActiveRecord
             'address' => Yii::t('app', 'Адрес'),
             'description' => Yii::t('app', 'Описание'),
             'stores_amount' => Yii::t('app', 'Количество этажей'),
+            'due_quarter' => Yii::t('app', 'Квартал сдачи'),
+            'due_year' => Yii::t('app', 'Год сдачи'),
+            'is_ready' => 'Сдан в эксплуатацию'
         ];
     }
 

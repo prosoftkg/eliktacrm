@@ -20,8 +20,6 @@ use Imagine\Image\Point;
  * @property float $base_dollar_price
  * @property float $base_som_price
  * @property integer $city
- * @property integer $due_quarter
- * @property integer $due_year
  * @property string $description
  * @property integer $company_id
  */
@@ -46,10 +44,10 @@ class Objects extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'base_dollar_price', 'base_som_price', 'city', 'due_quarter', 'due_year', 'description'], 'required'],
+            [['title', 'base_dollar_price', 'base_som_price', 'city', 'description'], 'required'],
             [['base_dollar_price', 'base_som_price'], 'number'],
             [['file'], 'file'],
-            [['due_quarter', 'due_year', 'company_id'], 'integer'],
+            [['company_id'], 'integer'],
             [['title', 'logo', 'city'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 500],
         ];
@@ -82,8 +80,6 @@ class Objects extends \yii\db\ActiveRecord
             'base_dollar_price' => Yii::t('app', 'Цена в долларах'),
             'base_som_price' => Yii::t('app', 'Цена в сомах'),
             'city' => Yii::t('app', 'Город'),
-            'due_quarter' => Yii::t('app', 'Квартал сдачи'),
-            'due_year' => Yii::t('app', 'Год сдачи'),
             'description' => Yii::t('app', 'Описание'),
             'company_id' => Yii::t('app', 'Компания'),
             'apartment_id' => Yii::t('app', 'Сделка'),

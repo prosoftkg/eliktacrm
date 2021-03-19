@@ -32,8 +32,8 @@ $company = $apartment->building->object->company;
 
 
         <div class="final_date">
-            Срок сдачи объекта: <?= $apartment->building->object->due_quarter ?>-й
-            квартал <?= $apartment->building->object->due_year; ?>-го года
+            Срок сдачи объекта: <?= $apartment->building->due_quarter ?>-й
+            квартал <?= $apartment->building->due_year; ?>-го года
         </div>
         <div class="proposal-left-block">
             <?= Html::img(Url::base() . '/images/building/s-' . $apartment->building->img, ['class' => 'proposal-building-img']); ?>

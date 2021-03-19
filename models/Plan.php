@@ -33,7 +33,8 @@ use app\models\Room;
 class Plan extends \yii\db\ActiveRecord
 {
 
-   public $file;
+    public $file;
+    public static $comfort_class = [0 => 'Эконом', 10 => 'Комфорт', 20 => 'Комфорт+', 30 => 'Бизнес', 40 => 'Премиум'];
     /**
      * @inheritdoc
      */
@@ -45,18 +46,35 @@ class Plan extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-        /**
+    /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
             [['title', 'room_count'], 'required'],
-            [['img', 'area', 'rooms', 'owner_id','company_id'], 'safe'],
+            [['img', 'area', 'rooms', 'owner_id', 'company_id'], 'safe'],
             [['title', 'img'], 'string', 'max' => 255],
-            [['room_count'], 'integer'],
+            [['room_count', 'comfort_class'], 'integer'],
             [['area'], 'number'],
             [['file'], 'file'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'title' => Yii::t('app', 'Названия плана'),
+            'file' => Yii::t('app', 'Рисунок'),
+            'dollar_price' => Yii::t('app', 'Ориентировочная цена в долларах'),
+            'som_price' => Yii::t('app', 'Ориентировочная цена в сомах'),
+            'room_count' => Yii::t('app', 'Количество комнат'),
+            'area' => Yii::t('app', 'Общая площадь'),
+            'comfort_class' => 'Класс жилья'
         ];
     }
 
@@ -137,21 +155,5 @@ class Plan extends \yii\db\ActiveRecord
         $this->img = null;
 
         return true;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'title' => Yii::t('app', 'Названия плана'),
-            'file' => Yii::t('app', 'Рисунок'),
-            'dollar_price' => Yii::t('app', 'Ориентировочная цена в долларах'),
-            'som_price' => Yii::t('app', 'Ориентировочная цена в сомах'),
-            'room_count' => Yii::t('app', 'Количество комнат'),
-            'area' => Yii::t('app', 'Общая площадь'),
-        ];
     }
 }

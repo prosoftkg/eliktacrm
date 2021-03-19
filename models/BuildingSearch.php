@@ -18,7 +18,7 @@ class BuildingSearch extends Building
     public function rules()
     {
         return [
-            [['id', 'object_id', 'stores_amount'], 'integer'],
+            [['id', 'object_id', 'stores_amount', 'due_quarter', 'due_year'], 'integer'],
             [['title', 'img', 'address', 'description'], 'safe'],
         ];
     }
@@ -62,6 +62,8 @@ class BuildingSearch extends Building
             'id' => $this->id,
             'object_id' => $this->object_id,
             'stores_amount' => $this->stores_amount,
+            'due_quarter' => $this->due_quarter,
+            'due_year' => $this->due_year,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])

@@ -18,7 +18,7 @@ class ObjectSearch extends Objects
     public function rules()
     {
         return [
-            [['id', 'due_quarter', 'due_year', 'company_id'], 'integer'],
+            [['id', 'company_id'], 'integer'],
             [['title', 'logo', 'city', 'description'], 'safe'],
             [['base_dollar_price', 'base_som_price'], 'number'],
         ];
@@ -63,8 +63,6 @@ class ObjectSearch extends Objects
             'id' => $this->id,
             'base_dollar_price' => $this->base_dollar_price,
             'base_som_price' => $this->base_som_price,
-            'due_quarter' => $this->due_quarter,
-            'due_year' => $this->due_year,
             'company_id' => $this->company_id,
         ]);
 

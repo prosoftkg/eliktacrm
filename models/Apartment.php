@@ -105,8 +105,11 @@ class Apartment extends \yii\db\ActiveRecord
         $fields['base_dollar_price'] = function ($model) {
             return $model->object->base_dollar_price;
         };
+        $fields['comfort_class'] = function ($model) {
+            return $model->plan->comfort_class;
+        };
         $fields['due'] = function ($model) {
-            return $model->object->due_quarter . ' кв. ' . $model->object->due_year;
+            return $model->building->due_quarter . ' кв. ' . $model->building->due_year;
         };
         $fields['address'] = function ($model) {
             return $model->building->address;
@@ -115,8 +118,8 @@ class Apartment extends \yii\db\ActiveRecord
             return $model->object->company->name;
         };
         $fields['pay_months'] = function ($model) {
-            $month2 = $model->object->due_quarter * 3;
-            $diff = (($model->object->due_year - date('Y')) * 12) + ($month2 - date('m'));
+            $month2 = $model->building->due_quarter * 3;
+            $diff = (($model->building->due_year - date('Y')) * 12) + ($month2 - date('m'));
             return $diff;
         };
         $fields['images'] = function ($model) {
@@ -124,6 +127,9 @@ class Apartment extends \yii\db\ActiveRecord
                 'images/object/' . $model->object->logo,
                 'images/plan/' . $model->plan_id . '/' . $model->plan->img,
             ];
+        };
+        $fields['is_ready'] = function ($model) {
+            return $model->building->is_ready;
         };
         return $fields;
     }

@@ -47,8 +47,6 @@ $companies = ArrayHelper::map($companies, 'id', 'name');
             'filter' => Objects::$cities,
 
         ],
-        'due_quarter',
-        'due_year',
         [
             'attribute' => 'company_id',
             'value' => function ($model) {

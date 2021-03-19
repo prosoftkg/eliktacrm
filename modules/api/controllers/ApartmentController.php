@@ -5,6 +5,7 @@ namespace app\modules\api\controllers;
 use app\models\Apartment;
 use Yii;
 use app\models\ApartmentSearch;
+use app\models\Company;
 
 class ApartmentController extends BaseController
 {
@@ -51,5 +52,9 @@ class ApartmentController extends BaseController
 
     public function actionFilterCount()
     {
+    }
+    public function actionCompanies()
+    {
+        return Company::find()->all();
     }
 }

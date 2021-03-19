@@ -33,10 +33,6 @@ use vova07\imperavi\Widget;
             //['prompt' => ''] // options
         ); ?>
 
-    <?= $form->field($model, 'due_quarter')->textInput() ?>
-
-    <?= $form->field($model, 'due_year')->textInput() ?>
-
     <?php
     echo $form->field($model, 'description')->widget(Widget::className(), [
         'settings' => [
