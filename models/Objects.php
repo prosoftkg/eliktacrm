@@ -22,6 +22,8 @@ use Imagine\Image\Point;
  * @property integer $city
  * @property string $description
  * @property integer $company_id
+ * @property float $lat
+ * @property float $lng
  */
 class Objects extends \yii\db\ActiveRecord
 {
@@ -45,7 +47,7 @@ class Objects extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'base_dollar_price', 'base_som_price', 'city', 'description'], 'required'],
-            [['base_dollar_price', 'base_som_price'], 'number'],
+            [['base_dollar_price', 'base_som_price', 'lat', 'lng'], 'number'],
             [['file'], 'file'],
             [['company_id'], 'integer'],
             [['title', 'logo', 'city'], 'string', 'max' => 255],
@@ -83,6 +85,8 @@ class Objects extends \yii\db\ActiveRecord
             'description' => Yii::t('app', 'Описание'),
             'company_id' => Yii::t('app', 'Компания'),
             'apartment_id' => Yii::t('app', 'Сделка'),
+            'lat' => 'Широта',
+            'lng' => 'Долгота',
             'file' => 'Фотографии',
         ];
     }

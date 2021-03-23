@@ -1,3 +1,7 @@
+
+let formMap = $('#form_map');
+let viewMap = $('#view_map');
+
 $(document).ready(function () {
     var panel = $('.js_panel');
     $(document).on('click', '.js_panel_toggle', function () {
@@ -14,4 +18,104 @@ $(document).ready(function () {
     });
 
     $("[data-toggle='tooltip']").tooltip();
+
+    if (formMap.length || viewMap.length) {
+        iniMap();
+    }
+
 });
+
+/*  Google Maps */
+let map;
+let bishkekCenter = { lat: 42.87, lng: 74.59 }
+let oshCenter = { lat: 40.51506, lng: 72.80826 };
+let cities = [bishkekCenter, oshCenter];
+let formMarker;
+let viewMarker;
+
+let setFormMap = function (currentCity) {
+    let latField = $('#objects-lat');
+    let lngField = $('#objects-lng');
+    map = new google.maps.Map(document.getElementById("form_map"), {
+        center: cities[currentCity],
+        zoom: 11,
+    });
+    if (lngField.val().length) {
+        formMarker = new google.maps.Marker({
+            position: { lat: parseFloat(latField.val()), lng: parseFloat(lngField.val()) },
+            draggable: true,
+        });
+        formMarker.setMap(map);
+        formMarker.addListener("dragend", () => {
+            let newPos = formMarker.getPosition();
+            latField.val(newPos.lat);
+            lngField.val(newPos.lng);
+        });
+    }
+
+    map.addListener("click", (e) => {
+        placeMarkerAndPanTo(e.latLng, map);
+        latField.val(e.latLng.lat);
+        lngField.val(e.latLng.lng);
+    });
+}
+
+function placeMarkerAndPanTo(latLng, map) {
+    if (typeof formMarker !== 'undefined') { formMarker.setMap(null); }
+    formMarker = new google.maps.Marker({
+        position: latLng,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+    });
+    formMarker.setMap(map);
+    map.panTo(latLng);
+    formMarker.addListener("dragend", () => {
+        let newPos = formMarker.getPosition();
+        $('#objects-lat').val(newPos.lat);
+        $('#objects-lng').val(newPos.lng);
+    });
+}
+
+let iniFormMap = function () {
+    let currentCity = $('#objects-city').val();
+    $('#objects-city').on('change', function () {
+        currentCity = $(this).val();
+        setFormMap(currentCity);
+    });
+    setFormMap(currentCity);
+}
+function iniViewMap() {
+    let viewLat = parseFloat(viewMap.attr('data-lat'));
+    let viewLng = parseFloat(viewMap.attr('data-lng'));
+    let viewCenter = { lat: viewLat, lng: viewLng };
+    map = new google.maps.Map(document.getElementById("view_map"), {
+        center: viewCenter,
+        zoom: 14,
+    });
+    new google.maps.Marker({
+        position: viewCenter,
+        map,
+    });
+}
+
+let iniMap = function () {
+    // Create the script tag, set the appropriate attributes
+    var script = document.createElement('script');
+    let map_api = 'AIzaSyB2k_D1CJhXxSm-4iKbz00RKxSYl9X50ME';
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=' + map_api + '&callback=initMap';
+    script.async = true;
+
+    // Attach your callback function to the `window` object
+    window.initMap = function () {
+        // JS API is loaded and available
+        if (formMap.length) {
+            iniFormMap();
+        }
+        if (viewMap.length) {
+            iniViewMap();
+        }
+    };
+
+    // Append the 'script' element to 'head'
+    document.head.appendChild(script);
+}

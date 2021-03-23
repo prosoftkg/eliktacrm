@@ -131,6 +131,13 @@ class Apartment extends \yii\db\ActiveRecord
         $fields['is_ready'] = function ($model) {
             return $model->building->is_ready;
         };
+
+        $fields['lat'] = function ($model) {
+            return $model->object->lat;
+        };
+        $fields['lng'] = function ($model) {
+            return $model->object->lng;
+        };
         return $fields;
     }
 

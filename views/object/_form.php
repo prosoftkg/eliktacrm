@@ -32,7 +32,7 @@ use vova07\imperavi\Widget;
             Objects::$cities // Flat array ('id'=>'label')
             //['prompt' => ''] // options
         ); ?>
-
+    <div id="form_map"></div>
     <?php
     echo $form->field($model, 'description')->widget(Widget::className(), [
         'settings' => [
@@ -46,6 +46,8 @@ use vova07\imperavi\Widget;
     ]);
 
     ?>
+    <?= $form->field($model, 'lat')->textInput() ?>
+    <?= $form->field($model, 'lng')->textInput() ?>
 
     <?php
     /* if ($model->isNewRecord)
