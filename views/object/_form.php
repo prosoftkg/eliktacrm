@@ -32,6 +32,7 @@ use vova07\imperavi\Widget;
             Objects::$cities // Flat array ('id'=>'label')
             //['prompt' => ''] // options
         ); ?>
+    <label for='form_map' class="form-label">Показать на карте</label>
     <div id="form_map"></div>
     <?php
     echo $form->field($model, 'description')->widget(Widget::className(), [

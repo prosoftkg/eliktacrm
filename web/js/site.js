@@ -33,16 +33,20 @@ let cities = [bishkekCenter, oshCenter];
 let formMarker;
 let viewMarker;
 
-let setFormMap = function (currentCity) {
+let setFormMap = function (mapCenter, change = false) {
     let latField = $('#objects-lat');
     let lngField = $('#objects-lng');
+    if (!change && lngField.val().length) {
+        mapCenter = { lat: parseFloat(latField.val()), lng: parseFloat(lngField.val()) };
+    }
+
     map = new google.maps.Map(document.getElementById("form_map"), {
-        center: cities[currentCity],
+        center: mapCenter,
         zoom: 11,
     });
-    if (lngField.val().length) {
+    if (!change && lngField.val().length) {
         formMarker = new google.maps.Marker({
-            position: { lat: parseFloat(latField.val()), lng: parseFloat(lngField.val()) },
+            position: mapCenter,
             draggable: true,
         });
         formMarker.setMap(map);
@@ -80,9 +84,9 @@ let iniFormMap = function () {
     let currentCity = $('#objects-city').val();
     $('#objects-city').on('change', function () {
         currentCity = $(this).val();
-        setFormMap(currentCity);
+        setFormMap(cities[currentCity], true);
     });
-    setFormMap(currentCity);
+    setFormMap(cities[currentCity]);
 }
 function iniViewMap() {
     let viewLat = parseFloat(viewMap.attr('data-lat'));

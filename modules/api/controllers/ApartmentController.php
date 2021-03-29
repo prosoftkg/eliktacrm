@@ -6,6 +6,7 @@ use app\models\Apartment;
 use Yii;
 use app\models\ApartmentSearch;
 use app\models\Company;
+use app\models\Objects;
 
 class ApartmentController extends BaseController
 {
@@ -52,9 +53,15 @@ class ApartmentController extends BaseController
 
     public function actionFilterCount()
     {
+        $searchModel = new ApartmentSearch();
+        return $searchModel->search(Yii::$app->request->queryParams)->getTotalCount();
     }
     public function actionCompanies()
     {
-        return Company::find()->all();
+        return Company::find()->select(['id', 'name'])->all();
+    }
+    public function actionObjects()
+    {
+        return Objects::find()->select(['id', 'title', 'company_id'])->all();
     }
 }
