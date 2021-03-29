@@ -54,9 +54,12 @@ use yii\helpers\ArrayHelper;
                             'id' => $mdlApartment->id,
                         ]
                     ]);
+                    $bp = $mdlApartment->basePrice;
+                    $usdPer = Html::tag('span', ' (' . $bp['usd'] . ')', ['class' => $bp['usd_custom']]);
+                    $kgsPer = Html::tag('span', ' (' . $bp['kgs'] . ')', ['class' => $bp['kgs_custom']]);
                     echo Html::tag('span', "S = {$mdlApartment->plan->area}", ['class' => 'apart_area']);
-                    echo Html::tag('span', number_format($mdlApartment->getPrice('som'), 0, '.', ' ') . ' сом', ['class' => 'apart_price']);
-                    echo Html::tag('span', '$' . number_format($mdlApartment->getPrice('dollar'), 0, '.', ' '), ['class' => 'dollar_price']);
+                    echo Html::tag('span', number_format($mdlApartment->getPrice('som'), 0, '.', ' ') . ' сом' . $kgsPer, ['class' => 'apart_price']);
+                    echo Html::tag('span', '$' . number_format($mdlApartment->getPrice('dollar'), 0, '.', ' ') . $usdPer, ['class' => 'dollar_price']);
                 }
                 echo Html::endTag('div');
             }

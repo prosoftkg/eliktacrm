@@ -32,11 +32,7 @@ use vova07\imperavi\Widget;
             Objects::$cities // Flat array ('id'=>'label')
             //['prompt' => ''] // options
         ); ?>
-
-    <?= $form->field($model, 'due_quarter')->textInput() ?>
-
-    <?= $form->field($model, 'due_year')->textInput() ?>
-
+    <div id="form_map"></div>
     <?php
     echo $form->field($model, 'description')->widget(Widget::className(), [
         'settings' => [
@@ -50,6 +46,8 @@ use vova07\imperavi\Widget;
     ]);
 
     ?>
+    <?= $form->field($model, 'lat')->textInput() ?>
+    <?= $form->field($model, 'lng')->textInput() ?>
 
     <?php
     /* if ($model->isNewRecord)

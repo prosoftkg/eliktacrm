@@ -5,6 +5,7 @@ namespace app\modules\api\controllers;
 use app\models\Apartment;
 use Yii;
 use app\models\ApartmentSearch;
+use app\models\Company;
 
 class ApartmentController extends BaseController
 {
@@ -47,5 +48,13 @@ class ApartmentController extends BaseController
             'rooms_info' => unserialize($model->plan->rooms),
             'similar' => $similar
         ];
+    }
+
+    public function actionFilterCount()
+    {
+    }
+    public function actionCompanies()
+    {
+        return Company::find()->all();
     }
 }

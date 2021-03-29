@@ -38,6 +38,11 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'stores_amount')->textInput() ?>
 
+    <?= $form->field($model, 'due_quarter')->textInput() ?>
+
+    <?= $form->field($model, 'due_year')->textInput() ?>
+    <?= $form->field($model, 'is_ready')->checkbox() ?>
+
     <?php
     if ($model->isNewRecord)
         echo $form->field($model, 'object_id')->hiddenInput(['value' => $object])->label(false);

@@ -15,22 +15,11 @@ class BaseController extends ActiveController
      */
     public function behaviors()
     {
-        /* return ArrayHelper::merge([
-            [
-                'class' => Cors::className(),
-            ],
-        ], parent::behaviors()); */
-
         $behaviors = parent::behaviors();
         $auth = $behaviors['authenticator'];
         unset($behaviors['authenticator']);
         $behaviors['corsFilter'] = [
             'class' => Cors::className(),
-            'cors'  => [
-                'Origin'                           => ['*'],
-                'Access-Control-Allow-Credentials' => true,
-                'Access-Control-Max-Age'           => 3600,
-            ],
         ];
         // re-add authentication filter
         $behaviors['authenticator'] = $auth;

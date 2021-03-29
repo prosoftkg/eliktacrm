@@ -208,8 +208,17 @@ class ApartmentController extends Controller
         $model = new Plan();
         $request = Yii::$app->getRequest();
         if ($request->isPost) {
+            $plan_id = Yii::$app->request->post('plan');
+            $object_id = Yii::$app->request->post('object_id');
+            $dao = Yii::$app->db;
+            $area = $dao->createCommand("SELECT area FROM `plan` WHERE id={$plan_id}")->queryScalar();
+            $price = $dao->createCommand("SELECT id,base_dollar_price,base_som_price FROM `object` WHERE id={$object_id}")->queryOne();
+            $dollar_price = $price['base_dollar_price'] * $area;
+            $som_price = $price['base_som_price'] * $area;
             Apartment::updateAll([
-                'plan_id' => Yii::$app->request->post('plan')
+                'plan_id' => $plan_id,
+                'dollar_price' => $dollar_price,
+                'som_price' => $som_price
             ], [
                 'id' => Json::decode(Yii::$app->request->post('flats'), true)
             ]);

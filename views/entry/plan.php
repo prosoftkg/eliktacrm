@@ -1,12 +1,16 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Damir
  * Date: 9/13/16
  * Time: 5:41 PM
  */
+
 use yii\helpers\Html;
 use yii\widgets\Pjax;
+
+// PROBABLY NOT USED -------------
 
 $apartment_count = $model->apartment_amount;
 $height = $model->building->stores_amount;
@@ -15,7 +19,7 @@ $allApartments = \yii\helpers\ArrayHelper::index(\app\models\Apartment::find()->
 
 $prev_apartment_count = $_GET['prev'];
 
-$plans = \app\models\Plan::find()->all();?>
+$plans = \app\models\Plan::find()->all(); ?>
 
 <div class="plan-wrapper">
     <?
@@ -53,11 +57,11 @@ $plans = \app\models\Plan::find()->all();?>
     ]);
 
     foreach ($plans as $plan):?>
-        <div class="plan-block">
-            <?=Html::a(Html::img($plan->getThumbFile()),$plan->getImageFile(),['rel' => 'fancybox']); ?>
-            <div class="clear plan-title"><?= $plan->title; ?></div>
-            <div class="clear plan-select" id="<?= $plan->id; ?>">Выбрать для применения</div>
-        </div>
+    <div class="plan-block">
+        <?= Html::a(Html::img($plan->getThumbFile()), $plan->getImageFile(), ['rel' => 'fancybox']); ?>
+        <div class="clear plan-title"><?= $plan->title; ?></div>
+        <div class="clear plan-select" id="<?= $plan->id; ?>">Выбрать для применения</div>
+    </div>
 
     <? endforeach ?>
 </div>
@@ -109,6 +113,7 @@ $script = <<<SCRIPT
            );
 
            $('.plan_send').click(function(){
+               console.log('views/entry/plan');
                $.ajax({
                    url: '/web/apartment/attach',
                    type: 'post',
@@ -121,9 +126,3 @@ $script = <<<SCRIPT
 SCRIPT;
 $this->registerJs($script);
 ?>
-
-
-
-
-
-

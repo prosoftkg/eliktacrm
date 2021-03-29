@@ -25,15 +25,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'base_som_price') ?>
 
-    <?php // echo $form->field($model, 'city') ?>
+    <?php // echo $form->field($model, 'city') 
+    ?>
 
-    <?php // echo $form->field($model, 'due_quarter') ?>
+    <?php // echo $form->field($model, 'due_year') 
+    ?>
 
-    <?php // echo $form->field($model, 'due_year') ?>
+    <?php // echo $form->field($model, 'description') 
+    ?>
 
-    <?php // echo $form->field($model, 'description') ?>
-
-    <?php // echo $form->field($model, 'company_id') ?>
+    <?php // echo $form->field($model, 'company_id') 
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

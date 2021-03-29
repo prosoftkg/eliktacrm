@@ -1220,3 +1220,4 @@ ol li:before {
 .tooltiphide .tooltip{display:none !important;}
 .adminpanel{background-color: #000;}
 .adminpanel a{color: #fff;}
+#form_map,#view_map{height: 300px;}

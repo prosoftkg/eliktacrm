@@ -10,8 +10,8 @@ use app\models\Apartment;
  */
 class PriceCorrector extends Model
 {
-    public $usd;
-    public $kgs;
+    public $usd; //per sq. m.
+    public $kgs; //per sq. m
     public $apartments = [];
 
     function rules()
@@ -23,12 +23,12 @@ class PriceCorrector extends Model
 
             ['usd', 'number'],
             ['usd', 'required', 'when' => function ($model) {
-                    return !$model->kgs;
-                }],
+                return !$model->kgs;
+            }],
             ['kgs', 'number'],
             ['kgs', 'required', 'when' => function ($model) {
-                    return !$model->usd;
-                }],
+                return !$model->usd;
+            }],
         ];
     }
 
@@ -44,8 +44,16 @@ class PriceCorrector extends Model
         $result = true;
         foreach ($this->apartments as $apartment_id) {
             $mdlApartment = Apartment::findOne($apartment_id);
-            $mdlApartment->dollar_price = ((double)$mdlApartment->dollar_price) ? $mdlApartment->dollar_price + ($this->usd) : $mdlApartment->getPrice('dollar') + $this->usd;
-            $mdlApartment->som_price = ((double)$mdlApartment->som_price) ? $mdlApartment->som_price + ($this->kgs) : $mdlApartment->getPrice('som') + $this->kgs;
+            //$mdlApartment->dollar_price = ((float)$mdlApartment->dollar_price) ? $mdlApartment->dollar_price + ($this->usd) : $mdlApartment->getPrice('dollar') + $this->usd;
+            //$mdlApartment->som_price = ((float)$mdlApartment->som_price) ? $mdlApartment->som_price + ($this->kgs) : $mdlApartment->getPrice('som') + $this->kgs;
+            if ($this->usd) {
+                $mdlApartment->dollar_price = $mdlApartment->plan->area * $this->usd;
+                $mdlApartment->base_dollar_price_custom =  $this->usd;
+            }
+            if ($this->kgs) {
+                $mdlApartment->som_price = $mdlApartment->plan->area * $this->kgs;
+                $mdlApartment->base_som_price_custom =  $this->kgs;
+            }
             $result = $result && $mdlApartment->save();
         }
         return $result;
@@ -54,8 +62,8 @@ class PriceCorrector extends Model
     public function attributeLabels()
     {
         return [
-            'kgs'=>'Цена в сомах',
-            'usd'=>'Цена в долларах',
+            'kgs' => 'Цена за м² в сомах',
+            'usd' => 'Цена за м² в долларах',
         ];
     }
 }

@@ -24,6 +24,7 @@ return [
     'Assignments' => 'Задачи',
     'Are you sure you want to delete this item?' => 'Вы уверенны что хотите удалить?',
     'Update' => 'Редактировать',
+    'Save' => 'Сохранить',
     'Delete' => 'Удалить',
     'Create' => 'Добавить',
     'Assignments' => 'Задачи',
