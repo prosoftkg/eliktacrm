@@ -72,7 +72,7 @@ class Apartment extends \yii\db\ActiveRecord
     public function fields()
     {
         $fields = parent::fields();
-        unset($fields['client'], $fields['manager'], $fields['entry_id'], $fields['status'], $fields['number'], $fields['entry_num'], $fields['building_id'], $fields['plan_id'], $fields['object_id']);
+        unset($fields['client'], $fields['manager'], $fields['entry_id'], $fields['status'], $fields['number'], $fields['entry_num'], $fields['building_id'], $fields['plan_id']);
 
         $fields['city_id'] = function ($model) {
             return (int)$model->object->city;
