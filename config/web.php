@@ -125,6 +125,10 @@ $config = [
             'class' => 'app\modules\apt\Module',
         ],
     ],
+    'aliases' => [
+        '@bower' => '@vendor/bower-asset',
+        '@npm'   => '@vendor/npm-asset',
+    ],
     'params' => $params,
 ];
 

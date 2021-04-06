@@ -37,7 +37,9 @@
         "kartik-v/yii2-tabs-x": "*",
         "kartik-v/yii2-mpdf": "*",
         "kartik-v/yii2-slider": "dev-master",
-        "workerman/phpsocket.io": "^1.1"
+        "workerman/phpsocket.io": "^1.1",
+        "bower-asset/bootstrap": "^3.3",
+        "npm-asset/jquery": "^2.2"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
@@ -70,5 +72,11 @@
             "npm-asset-library": "vendor/npm",
             "bower-asset-library": "vendor/bower"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
 }
