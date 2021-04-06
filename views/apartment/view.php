@@ -9,6 +9,7 @@ use yii\widgets\DetailView;
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Apartments'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+echo $model->object->company->name . ';' . $model->plan->room_count . ' - ком. кв. ЖК ' . $model->object->title;
 ?>
 <div class="apartment-view">
 
@@ -24,6 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <?php echo Html::tag('a', Yii::t('app', 'Message seller'), [
+        'class' => 'btn btn-primary btn-lgg mt10 js_chat_modal',
+        //'data-receiver' => $model->object->company->owner_id
+    ]); ?>
 
     <?= DetailView::widget([
         'model' => $model,
@@ -43,3 +48,4 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
 </div>
+<?php include_once(Yii::getAlias('@app') . '/views/chat/_chat_modal.php'); ?>
