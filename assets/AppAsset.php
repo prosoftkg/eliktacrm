@@ -21,10 +21,13 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'js/qtip/jquery.qtip.css',
+        'css/chat.css',
     ];
     public $js = [
         'js/qtip/jquery.qtip.js',
         'js/site.js',
+        'socket/socket.io-client/socket.io.js',
+        'js/chat.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

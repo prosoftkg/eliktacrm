@@ -11,6 +11,12 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+$user = Yii::$app->user;
+$user_id = $user->id;
+$auth_key = '';
+if ($user_id) {
+    $auth_key = $user->identity->getAuthKey();
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -77,6 +83,7 @@ AppAsset::register($this);
                 $username = [
                     'label' => Yii::$app->user->identity->username, 'items' => [
                         ['label' => 'Личный кабинет', 'url' => ['/user/profile', 'id' => Yii::$app->user->id], ['class' => 'btn btn-link']],
+                        ['label' => 'Сообщения', 'url' => ['/chat', 'id' => Yii::$app->user->id], ['class' => 'btn btn-link']],
                         ['label' => 'Выйти', 'url' => '/user/logout'],
                     ], ['style' => 'color:#fff']
                 ];
@@ -150,6 +157,11 @@ AppAsset::register($this);
 
             <p>Ограничение отвественности</p>
         </div>
+        <div id="footer_id" class="hidden" data-id="<?= $user->id ?>"><?= $auth_key ?></div>
+        <audio id="myAudio">
+            <source src="/socket/light.ogg" type="audio/ogg">
+            <source src="/socket/light.mp3" type="audio/mpeg">
+        </audio>
     </footer>
 
     <?php $this->endBody() ?>
