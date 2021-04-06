@@ -41,10 +41,10 @@ class SocketController extends Controller
                 //$socket->user_key=$user['key'];
                 $socket->user_id = $user['id'];
                 $socket->broadcast->emit('user joined', $socket->user_id);
-                $db = Yii::$app->db;
+                /* $db = Yii::$app->db;
                 $db->createCommand("UPDATE `user` SET is_online=1 WHERE id='{$user['id']}'")->execute();
                 $db->close();
-                $db = NULL;
+                $db = NULL; */
                 gc_collect_cycles();
                 //Yii::$app->db->createCommand()->insert('test',['title'=>serialize($user)])->execute();
             });
@@ -76,10 +76,10 @@ class SocketController extends Controller
             // when the user disconnects.. perform this
             $socket->on('disconnect', function () use ($socket) {
                 $socket->broadcast->emit('user left', $socket->user_id);
-                $db = Yii::$app->db;
+                /* $db = Yii::$app->db;
                 $db->createCommand("UPDATE `user` SET is_online=0 WHERE id='{$socket->user_id}'")->execute();
                 $db->close();
-                $db = NULL;
+                $db = NULL; */
                 gc_collect_cycles();
                 //Yii::$app->db->createCommand()->insert('test',['title'=>'left yoba','number'=>$socket->user_id])->execute();
             });
