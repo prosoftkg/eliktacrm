@@ -1,7 +1,12 @@
 {
     "name": "yiisoft/yii2-app-basic",
     "description": "Yii 2 Basic Project Template",
-    "keywords": ["yii2", "framework", "basic", "project template"],
+    "keywords": [
+        "yii2",
+        "framework",
+        "basic",
+        "project template"
+    ],
     "homepage": "http://www.yiiframework.com/",
     "type": "project",
     "license": "BSD-3-Clause",
@@ -31,8 +36,8 @@
         "kartik-v/yii2-popover-x": "dev-master",
         "kartik-v/yii2-tabs-x": "*",
         "kartik-v/yii2-mpdf": "*",
-        "kartik-v/yii2-slider": "dev-master"
-
+        "kartik-v/yii2-slider": "dev-master",
+        "workerman/phpsocket.io": "^1.1"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
