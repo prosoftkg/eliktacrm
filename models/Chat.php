@@ -133,24 +133,9 @@ AND is_read=0 AND receiver_id='{$user_id}'")->queryAll();
 
         $fields['name'] = function ($model) use ($user_id) {
             if ($user_id == $model->sender_id) {
-                return $model->receiver->name;
+                return $model->receiver->profile->name;
             } else {
-                return $model->sender->name;
-            }
-        };
-        $fields['avatar'] = function ($model) use ($user_id) {
-            if ($user_id == $model->sender_id) {
-                if ($ava = $model->receiver->ava) {
-                    $month = date('m-Y', $model->receiver->created_at);
-                    $image = $month . '/' . $model->receiver_id . '/s_' . $ava;
-                } else $image = null;
-                return $image;
-            } else {
-                if ($ava = $model->sender->ava) {
-                    $month = date('m-Y', $model->sender->created_at);
-                    $image = $month . '/' . $model->sender_id . '/s_' . $ava;
-                } else $image = null;
-                return $image;
+                return $model->sender->profile->name;
             }
         };
 

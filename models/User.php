@@ -4,12 +4,18 @@ namespace app\models;
 
 use Yii;
 use app\models\Company;
-
 use dektrium\user\models\User as BaseUser;
 
+/**
+ * This is the model class for table "apartment".
+ *
+ * @property string $firebase_id
+ * @property string $phone
+ */
 class User extends BaseUser
 {
     public $name;
+    //public $firebase_id;
     public function scenarios()
     {
         $scenarios = parent::scenarios();
@@ -28,7 +34,7 @@ class User extends BaseUser
     {
         $rules = parent::rules();
         // add some rules
-        $rules['fieldRequired'] = [['company_id', 'parent_id', 'name'], 'safe'];
+        $rules['fieldSafe'] = [['company_id', 'parent_id', 'name', 'firebase_id', 'phone'], 'safe'];
         $rules['fieldLength'] = ['company_id', 'integer', 'max' => 100];
         $rules['fieldLength'] = ['name', 'string', 'max' => 100];
         $rules['fieldLength'] = ['parent_id', 'integer'];
@@ -54,5 +60,20 @@ class User extends BaseUser
 
     public function getOwned()
     {
+    }
+
+    /**
+     * @param $token
+     * @param null $type
+     * @return User|void|\yii\web\IdentityInterface|null
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        $user = static::findOne(['auth_key' => $token]);
+        if ($user !== null && !$user->isBlocked && $user->isConfirmed) {
+            return $user;
+        }
+
+        return null;
     }
 }
