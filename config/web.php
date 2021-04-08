@@ -43,6 +43,24 @@ $config = [
                         'GET companies' => 'companies',
                     ],
                 ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/chat',
+                    'extraPatterns' => [
+                        'POST add' => 'add',
+                        'POST viewed' => 'viewed',
+                        'POST archive' => 'archive',
+                        'GET load' => 'load',
+                        'GET list' => 'list',
+                    ],
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/page',
+                    'extraPatterns' => [
+                        'POST auth' => 'auth',
+                    ],
+                ],
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

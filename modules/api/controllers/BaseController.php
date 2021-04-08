@@ -5,7 +5,9 @@ namespace app\modules\api\controllers;
 use yii\rest\ActiveController;
 use yii\web\Response;
 use yii\filters\ContentNegotiator;
-use \yii\filters\Cors;
+use yii\filters\Cors;
+use yii\filters\auth\CompositeAuth;
+use yii\filters\auth\HttpBearerAuth;
 
 class BaseController extends ActiveController
 {
@@ -16,15 +18,26 @@ class BaseController extends ActiveController
     public function behaviors()
     {
         $behaviors = parent::behaviors();
-        $auth = $behaviors['authenticator'];
+        //$auth = $behaviors['authenticator'];
         unset($behaviors['authenticator']);
         $behaviors['corsFilter'] = [
             'class' => Cors::className(),
         ];
         // re-add authentication filter
-        $behaviors['authenticator'] = $auth;
+        //$behaviors['authenticator'] = $auth;
+        $behaviors['authenticator'] = [
+            'class' => CompositeAuth::className(),
+            'authMethods' => [
+                HttpBearerAuth::className(),
+            ],
+            'only' => ['add', 'load', 'list', 'archive', 'viewed'],
+            'except' => [
+                'options',
+                //'index', 'companies', 'filter-count', 'detail', 'objects','auth'
+            ]
+        ];
+
         // avoid authentication on CORS-pre-flight requests (HTTP OPTIONS method)
-        $behaviors['authenticator']['except'] = ['options'];
         $behaviors['contentNegotiator'] = [
             'class' => ContentNegotiator::className(),
             'formats' => [
