@@ -5,6 +5,8 @@ namespace app\models;
 use Yii;
 use frontend\models\Offer;
 use yii\helpers\StringHelper;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "chatline".
@@ -25,6 +27,23 @@ class Chatline extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'chatline';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            //TimestampBehavior::className(),
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['sent_at'],
+                    //ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
+        ];
     }
 
     /**
@@ -97,8 +116,7 @@ class Chatline extends \yii\db\ActiveRecord
             'body' => StringHelper::truncate($this->text, 100),
             'user_id' => $this->receiver_id,
             'params' => [
-                'chat_id' => $this->chat_id, 'sender' => $this->sender->name,
-                'sender_id' => $this->sender_id, 'text' => $this->text
+                'chat_id' => $this->chat_id, 'sender_id' => $this->sender_id, 'text' => $this->text
             ],
         ];
         // $notif_id=Offer::createNotif($params);
