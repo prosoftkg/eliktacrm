@@ -109,7 +109,7 @@ class Apartment extends \yii\db\ActiveRecord
             return $model->plan->comfort_class;
         };
         $fields['due'] = function ($model) {
-            return $model->building->due_quarter . ' кв. ' . $model->building->due_year;
+            return $model->building->due_quarter . ' квартал ' . $model->building->due_year . ' г.';
         };
         $fields['address'] = function ($model) {
             return $model->building->address;

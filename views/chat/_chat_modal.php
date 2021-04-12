@@ -18,7 +18,7 @@ use yii\helpers\Html;
                 <?= Html::hiddenInput('receiver_id', $model->object->company->owner_id, [
                     //'class' => 'js_chat_receiver_id'
                 ]); ?>
-                <?= Html::hiddenInput('subject', $model->plan->room_count . ' - ком. кв. ЖК ' . $model->object->title . '; ' . $model->object->company->name); ?>
+                <?= Html::hiddenInput('subject', $model->plan->room_count . ' - ком. кв. ' . $model->object->title . '; ' . $model->object->company->name); ?>
                 <?= Html::hiddenInput('view', Yii::$app->controller->id); ?>
                 <?= Html::hiddenInput('view_id', $model->id); ?>
             </div>

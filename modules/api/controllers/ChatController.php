@@ -43,7 +43,7 @@ class ChatController extends BaseController
         }
         if (!empty($peer->id)) {
             $msg = new Chatline();
-            $msg->text = $req->post('message');
+            $msg->text = $req->post('text');
             $msg->receiver_id = $req->post('receiver_id');
             $msg->link('chat', $peer);
             $response["success"] = true;
