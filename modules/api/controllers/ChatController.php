@@ -44,6 +44,7 @@ class ChatController extends BaseController
         if (!empty($peer->id)) {
             $msg = new Chatline();
             $msg->text = $req->post('text');
+            $msg->sender_id = Yii::$app->user->id;
             $msg->receiver_id = $req->post('receiver_id');
             $msg->link('chat', $peer);
             $response["success"] = true;

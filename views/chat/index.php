@@ -24,7 +24,7 @@ if (Yii::$app->request->get('archive')) {
 ?>
 <!--<div class="js_chat_id" style="width: 100px; height: 100px; overflow: scroll;"><div style="height: 200px; width: 100px;"></div> </div>-->
 <?php
-Pjax::begin();
+//Pjax::begin();
 ?>
 <div class="row">
     <div class="mb15 menu2 pl15 font13">
@@ -87,5 +87,5 @@ Pjax::begin();
     ?>
 </div>
 <?php
-Pjax::end();
+//Pjax::end();
 ?>

@@ -120,6 +120,9 @@ class Apartment extends \yii\db\ActiveRecord
         $fields['pay_months'] = function ($model) {
             $month2 = $model->building->due_quarter * 3;
             $diff = (($model->building->due_year - date('Y')) * 12) + ($month2 - date('m'));
+            if ($diff < 0) {
+                $diff = 0;
+            }
             return $diff;
         };
         $fields['images'] = function ($model) {
