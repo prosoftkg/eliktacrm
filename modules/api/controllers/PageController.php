@@ -48,6 +48,7 @@ class PageController extends BaseController
         }
         return [
             'id' => $user->id,
+            'name' => $user->profile->name,
             'auth_key' => $user->auth_key,
         ];
     }

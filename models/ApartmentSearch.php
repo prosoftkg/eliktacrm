@@ -169,6 +169,11 @@ class ApartmentSearch extends Apartment
             $cls = explode(",", $params['company_id']);
             $query->andFilterWhere(['in', 'object.company_id', $cls]);
         }
+        if (isset($params['object_id'])) {
+            $cls = explode(",", $params['object_id']);
+            $query->andFilterWhere(['in', 'object.id', $cls]);
+        }
+
 
         // add conditions that should always apply here
 
