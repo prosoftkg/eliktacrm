@@ -64,4 +64,24 @@ class ApartmentController extends BaseController
     {
         return Objects::find()->select(['id', 'title', 'company_id'])->all();
     }
+    public function actionFavs()
+    {
+        $dao = Yii::$app->db;
+        $uid = Yii::$app->user->id;
+        return $dao->createCommand("SELECT * FROM `fav` WHERE user_id={$uid}")->queryAll();
+    }
+    public function actionFav()
+    {
+        $aid = Yii::$app->request->post('apartment_id');
+        $dao = Yii::$app->db;
+        $uid = Yii::$app->user->id;
+        $already = $dao->createCommand("SELECT * FROM `fav` WHERE user_id={$uid} AND apartment_id={$aid}")->queryOne();
+        if ($already) {
+            $dao->createCommand()->delete('fav', ['apartment_id' => $aid, 'user_id' => $uid])->execute();
+            return 0;
+        } else {
+            $dao->createCommand()->insert('fav', ['apartment_id' => $aid, 'user_id' => $uid])->execute();
+            return 1;
+        }
+    }
 }

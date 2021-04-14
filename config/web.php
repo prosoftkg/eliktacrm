@@ -41,6 +41,8 @@ $config = [
                         'GET detail' => 'detail',
                         'GET filter-count' => 'filter-count',
                         'GET companies' => 'companies',
+                        'GET favs' => 'favs',
+                        'POST fav' => 'fav',
                     ],
                 ],
                 [
