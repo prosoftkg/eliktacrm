@@ -59,6 +59,7 @@ $config = [
                     'controller' => 'api/page',
                     'extraPatterns' => [
                         'POST auth' => 'auth',
+                        'POST edit' => 'edit',
                     ],
                 ],
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',

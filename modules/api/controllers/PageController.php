@@ -52,4 +52,15 @@ class PageController extends BaseController
             'auth_key' => $user->auth_key,
         ];
     }
+
+    public function actionEdit()
+    {
+        $post = Yii::$app->request->post();
+        $dao = Yii::$app->db;
+        $command = $dao->createCommand()->update('profile', ['name' => $post['name']], ['user_id' => Yii::$app->user->id]);
+        if ($command->execute()) {
+            return true;
+        }
+        return false;
+    }
 }
