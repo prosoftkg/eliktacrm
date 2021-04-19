@@ -68,8 +68,15 @@ class ApartmentController extends BaseController
     {
         $dao = Yii::$app->db;
         $uid = Yii::$app->user->id;
-        return $dao->createCommand("SELECT * FROM `fav` WHERE user_id={$uid}")->queryAll();
+        //return $dao->createCommand("SELECT * FROM `fav` WHERE user_id={$uid}")->queryAll();
+        $apt_id_rows = $dao->createCommand("SELECT apartment_id FROM `fav` WHERE user_id={$uid}")->queryAll();
+        $apt_ids = [];
+        foreach ($apt_id_rows as $aid) {
+            $apt_ids[] = $aid['apartment_id'];
+        }
+        return Apartment::find()->where(['in', 'id', $apt_ids])->all();
     }
+
     public function actionFav()
     {
         $aid = Yii::$app->request->post('apartment_id');
