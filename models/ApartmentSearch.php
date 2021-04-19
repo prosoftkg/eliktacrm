@@ -51,6 +51,11 @@ class ApartmentSearch extends Apartment
         //$query->joinWith('object', true, 'INNER JOIN');
         $query->joinWith(['object', 'plan'], true, 'INNER JOIN');
 
+        if (isset($params['id'])) {
+            $cls = explode(",", $params['id']);
+            $query->andFilterWhere(['in', 'apartment.id', $cls]);
+        }
+
         if (isset($params['city_id'])) {
             $city_id = $params['city_id'];
             $query->andFilterWhere(['object.city' => $city_id]);
