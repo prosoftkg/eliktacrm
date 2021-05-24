@@ -36,14 +36,14 @@ class Chat extends ActiveRecord
     public function behaviors()
     {
         return [
-            //TimestampBehavior::className(),
-            'timestamp' => [
+            TimestampBehavior::className(),
+            /*  'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
                 ],
-            ],
+            ], */
         ];
     }
 

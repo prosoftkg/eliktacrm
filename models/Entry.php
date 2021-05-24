@@ -78,7 +78,15 @@ class Entry extends \yii\db\ActiveRecord
         }
         $fix = $stores * $amount + $count;
         for ($i = $count + 1; $i <= $fix; $i++) {
-            Yii::$app->db->createCommand()
+            $model = new Apartment();
+            $model->entry_num = $entry;
+            $model->building_id = $building;
+            $model->number = $i;
+            $model->entry_id = $entryId;
+            $model->object_id = $object;
+            $model->floor = $floor;
+            $model->save();
+            /* Yii::$app->db->createCommand()
                 ->insert('apartment', [
                     'entry_num' => $entry,
                     'building_id' => $building,
@@ -86,7 +94,8 @@ class Entry extends \yii\db\ActiveRecord
                     'entry_id' => $entryId,
                     'object_id' => $object,
                     'floor' => $floor,
-                ])->execute();
+                    'updated_at' => time()
+                ])->execute(); */
 
             if ($i % $amount == 0) {
                 $floor++;

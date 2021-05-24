@@ -7,6 +7,7 @@ use app\models\Plan;
 use app\models\Objects;
 use app\models\Building;
 use app\models\Client;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "apartment".
@@ -69,10 +70,30 @@ class Apartment extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
+        ];
+    }
+
     public function fields()
     {
         $fields = parent::fields();
         unset($fields['client'], $fields['manager'], $fields['entry_id'], $fields['status'], $fields['number'], $fields['entry_num'], $fields['building_id'], $fields['plan_id']);
+
+        $fields['user_id'] = function ($model) {
+            return (int)$model->object->company->owner_id;
+        };
 
         $fields['city_id'] = function ($model) {
             return (int)$model->object->city;
@@ -116,6 +137,9 @@ class Apartment extends \yii\db\ActiveRecord
         };
         $fields['company'] = function ($model) {
             return $model->object->company->name;
+        };
+        $fields['company_id'] = function ($model) {
+            return $model->object->company_id;
         };
         $fields['pay_months'] = function ($model) {
             $month2 = $model->building->due_quarter * 3;

@@ -7,6 +7,7 @@ use Yii;
 use app\models\ApartmentSearch;
 use app\models\Company;
 use app\models\Objects;
+use app\models\Fav;
 
 class ApartmentController extends BaseController
 {
@@ -37,17 +38,17 @@ class ApartmentController extends BaseController
     public function actionDetail($id)
     {
         $model = Apartment::find()->where(['id' => $id])->one();
-        $similars = Apartment::find()->where(['object_id' => $model->object_id, 'plan_id' => $model->plan_id])->andWhere(['<>', 'id', $model->id])->limit(6)->all();
-        $similar = [];
+        $similars = Apartment::find()->where(['object_id' => $model->object_id, 'plan_id' => $model->plan_id])->andWhere(['<>', 'id', $model->id])->limit(2)->all();
+        /* $similar = [];
         foreach ($similars as $sim) {
             $similar[] = ['id' => $sim->id, 'img' => 'images/plan/' . $sim->plan_id . '/' . $sim->plan->img];
-        }
+        } */
         return [
             'id' => $model->id,
             'object_description' => $model->object->description,
             'company_info' => $model->object->company->name,
             'rooms_info' => unserialize($model->plan->rooms),
-            'similar' => $similar
+            'similars' => $similars
         ];
     }
 
@@ -58,7 +59,7 @@ class ApartmentController extends BaseController
     }
     public function actionCompanies()
     {
-        return Company::find()->select(['id', 'name'])->all();
+        return Company::find()->select(['id', 'name', 'phone'])->all();
     }
     public function actionObjects()
     {
@@ -79,16 +80,44 @@ class ApartmentController extends BaseController
 
     public function actionFav()
     {
-        $aid = Yii::$app->request->post('apartment_id');
+        $post = Yii::$app->request->post();
         $dao = Yii::$app->db;
         $uid = Yii::$app->user->id;
-        $already = $dao->createCommand("SELECT * FROM `fav` WHERE user_id={$uid} AND apartment_id={$aid}")->queryOne();
-        if ($already) {
-            $dao->createCommand()->delete('fav', ['apartment_id' => $aid, 'user_id' => $uid])->execute();
-            return 0;
-        } else {
-            $dao->createCommand()->insert('fav', ['apartment_id' => $aid, 'user_id' => $uid])->execute();
+
+        //bookmark apt
+        if (!empty($post['apartment_id'])) {
+            $aid = $post['apartment_id'];
+            $already = $dao->createCommand("SELECT * FROM `fav` WHERE user_id={$uid} AND apartment_id={$aid}")->queryOne();
+            if ($already) {
+                $dao->createCommand()->delete('fav', ['apartment_id' => $aid, 'user_id' => $uid])->execute();
+                return 0;
+            } else {
+                $dao->createCommand()->insert('fav', ['apartment_id' => $aid, 'user_id' => $uid])->execute();
+                return 1;
+            }
+        }
+        //subscribe to search
+        if (!empty($post['url']) && !empty($post['title'])) {
+            $model = new Fav();
+            $model->url = $post['url'];
+            $model->title = $post['title'];
+            $model->user_id = $uid;
+            $model->save();
+            return $model->id;
+        }
+        return null;
+    }
+
+    //delete subscription
+    public function actionDeleteFav()
+    {
+        $id = Yii::$app->request->post('id');
+        $uid = Yii::$app->user->id;
+        $dao = Yii::$app->db;
+        $command = $dao->createCommand()->delete('fav', ['user_id' => $uid, 'id' => $id]);
+        if ($command->execute()) {
             return 1;
         }
+        return null;
     }
 }

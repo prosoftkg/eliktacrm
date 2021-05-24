@@ -43,6 +43,7 @@ $config = [
                         'GET companies' => 'companies',
                         'GET favs' => 'favs',
                         'POST fav' => 'fav',
+                        'POST delete-fav' => 'delete-fav',
                     ],
                 ],
                 [

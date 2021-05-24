@@ -28,7 +28,7 @@ class ChatController extends BaseController
         if ($chatId) {
             $peer = Chat::findOne($chatId);
         } else {
-            $peer = Chat::find()->where(['link' => $req->post('link'), 'receiver_id' => $req->post('receiver_id')])->one();
+            $peer = Chat::find()->where(['subject_link' => $req->post('link'), 'receiver_id' => $req->post('receiver_id')])->one();
             if (!$peer) {
                 $peer = new Chat();
                 $peer->receiver_id = $req->post('receiver_id');

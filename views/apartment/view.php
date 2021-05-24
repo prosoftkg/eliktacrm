@@ -9,7 +9,7 @@ use yii\widgets\DetailView;
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Apartments'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-echo $model->object->company->name . ';' . $model->plan->room_count . ' - ком. кв. ЖК ' . $model->object->title;
+//echo $model->object->company->name . ';' . $model->plan->room_count . ' - ком. кв. ЖК ' . $model->object->title;
 ?>
 <div class="apartment-view">
 

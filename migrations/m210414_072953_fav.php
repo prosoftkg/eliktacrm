@@ -17,6 +17,9 @@ class m210414_072953_fav extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer('11'),
             'apartment_id' => $this->integer('11'),
+            'url' => $this->string(200),
+            'title' => $this->string(255),
+            'date_query' => $this->integer()
         ], $tableOptions);
 
         $this->createIndex('idx_fav_usr_id', 'fav', 'user_id');
