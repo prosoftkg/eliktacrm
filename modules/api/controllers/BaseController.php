@@ -30,7 +30,7 @@ class BaseController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'only' => ['add', 'load', 'list', 'archive', 'viewed', 'edit', 'fav', 'favs', 'delete-fav'],
+            'only' => ['add', 'load', 'list', 'archive', 'viewed', 'edit', 'fav', 'favs', 'delete-fav', 'subs'],
             'except' => [
                 'options',
                 //'index', 'companies', 'filter-count', 'detail', 'objects','auth'

@@ -59,11 +59,11 @@ class ApartmentController extends BaseController
     }
     public function actionCompanies()
     {
-        return Company::find()->select(['id', 'name', 'phone'])->all();
+        return Company::find()->select(['id', 'name', 'phone'])->orderBy('name ASC')->all();
     }
     public function actionObjects()
     {
-        return Objects::find()->select(['id', 'title', 'company_id'])->all();
+        return Objects::find()->select(['id', 'title', 'company_id'])->orderBy('title ASC')->all();
     }
     public function actionFavs()
     {
@@ -76,6 +76,14 @@ class ApartmentController extends BaseController
             $apt_ids[] = $aid['apartment_id'];
         }
         return Apartment::find()->where(['in', 'id', $apt_ids])->all();
+    }
+    public function actionSubs()
+    {
+        $dao = Yii::$app->db;
+        $uid = Yii::$app->user->id;
+        //return $dao->createCommand("SELECT * FROM `fav` WHERE user_id={$uid}")->queryAll();
+        $rows = $dao->createCommand("SELECT * FROM `fav` WHERE user_id={$uid} AND apartment_id IS NULL")->queryAll();
+        return $rows;
     }
 
     public function actionFav()

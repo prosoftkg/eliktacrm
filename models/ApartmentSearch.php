@@ -57,8 +57,9 @@ class ApartmentSearch extends Apartment
         }
 
         if (isset($params['city_id'])) {
-            $city_id = $params['city_id'];
-            $query->andFilterWhere(['object.city' => $city_id]);
+            //$city_id = $params['city_id'];
+            $city_ids = explode(',', $params['city_id']);
+            $query->andFilterWhere(['object.city' => $city_ids]);
         }
 
         if (!empty($params['price_min'])) {
