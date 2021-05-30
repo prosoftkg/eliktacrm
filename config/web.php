@@ -114,6 +114,16 @@ $config = [
         'db' => $db,
         'assetManager' => [
             'appendTimestamp' => true,
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'sourcePath' => null,
+                    'basePath' => '@webroot',
+                    'baseUrl' => '@web',
+                    'js' => [
+                        'js/jquery.js',
+                    ]
+                ],
+            ],
         ],
         /*
         'urlManager' => [
