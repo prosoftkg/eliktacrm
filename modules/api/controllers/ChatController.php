@@ -28,7 +28,11 @@ class ChatController extends BaseController
         if ($chatId) {
             $peer = Chat::findOne($chatId);
         } else {
-            $peer = Chat::find()->where(['subject_link' => $req->post('link'), 'receiver_id' => $req->post('receiver_id')])->one();
+            $peer = Chat::find()->where([
+                'subject_link' => $req->post('link'),
+                'receiver_id' => $req->post('receiver_id'),
+                'sender_id' => Yii::$app->user->id,
+            ])->one();
             if (!$peer) {
                 $peer = new Chat();
                 $peer->receiver_id = $req->post('receiver_id');
@@ -105,6 +109,17 @@ class ChatController extends BaseController
             'chat',
             ['archive' => 1],
             ['id' => $chat_id]
+        )->execute();
+    }
+
+    public function actionActive()
+    {
+        $chat_id = Yii::$app->request->post('chat_id');
+        $dao = Yii::$app->db;
+        $dao->createCommand()->update(
+            'fcm_token',
+            ['active_chat_id' => $chat_id],
+            ['user_id' => Yii::$app->user->id]
         )->execute();
     }
 

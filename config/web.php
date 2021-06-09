@@ -55,6 +55,7 @@ $config = [
                         'POST archive' => 'archive',
                         'GET load' => 'load',
                         'GET list' => 'list',
+                        'POST active' => 'active',
                     ],
                 ],
                 [

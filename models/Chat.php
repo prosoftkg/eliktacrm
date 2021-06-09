@@ -126,7 +126,7 @@ class Chat extends ActiveRecord
             $fields['unreads'] = function ($model) use ($user_id) {
                 $dao = Yii::$app->db;
                 $posts = $dao->createCommand("SELECT id AS unreads FROM chatline WHERE chat_id='{$model->id}' 
-AND is_read=0 AND receiver_id='{$user_id}'")->queryAll();
+                    AND is_read=0 AND receiver_id='{$user_id}'")->queryAll();
                 return count($posts);
             };
         }

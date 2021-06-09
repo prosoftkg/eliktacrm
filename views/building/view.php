@@ -12,6 +12,12 @@ use yii\bootstrap\Collapse;
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => $model->object->title, 'url' => ['/object/' . $model->object->id]];
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->params['breadcrumbs'][] = [
+    'label' => 'Добавить ход строительства',
+    'url' => ['stage/create', 'bid' => $model->id],
+    'template' => "<li class='bread-right-link'>{link}</li>\n"
+];
 $this->params['breadcrumbs'][] = [
     'label' => 'Редактировать строение',
     'url' => ['building/update', 'id' => $model->id],
@@ -27,12 +33,11 @@ $this->params['breadcrumbs'][] = [
 ?>
 
 
-<!--<link type="text/css" rel="stylesheet" href="<?/*= Url::base() . '/js/qtip/jquery.qtip.min.css'; */?>">
-<script type="text/javascript" src="<?/*= Url::base(); */?>/js/qtip/jquery.qtip.min.js"></script>-->
-
+<!--<link type="text/css" rel="stylesheet" href="<?/*= Url::base() . '/js/qtip/jquery.qtip.min.css'; */ ?>">
+<script type="text/javascript" src="<?/*= Url::base(); */ ?>/js/qtip/jquery.qtip.min.js"></script>-->
 <div class="building-view">
     <?php if ($model->img) {
-        echo Html::img(Url::base() . '/images/building/' . $model->img, ['class' => 'object_img']);
+        echo Html::img($model->getMainImg('building', false, false), ['class' => 'object_img']);
     } ?>
 
     <div class="right-view">
@@ -81,6 +86,16 @@ $this->params['breadcrumbs'][] = [
         <div class="object-description">
             <?= $model->description; ?>
         </div>
+
+        <?php
+        if ($model->stages) {
+            echo "<br />";
+            echo Html::tag('h4', 'Ходы стриотельства');
+            foreach ($model->stages as $stage) {
+                echo Html::a(date('d.m.Y', $stage->date_stage), ['/stage/view', 'id' => $stage->id], ['class' => 'btn btn-default']);
+            }
+        }
+        ?>
     </div>
 
     <?php

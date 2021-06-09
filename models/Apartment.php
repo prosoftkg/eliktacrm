@@ -150,10 +150,22 @@ class Apartment extends \yii\db\ActiveRecord
             return $diff;
         };
         $fields['images'] = function ($model) {
-            return [
-                'images/object/' . $model->object->logo,
-                'images/plan/' . $model->plan_id . '/' . $model->plan->img,
-            ];
+            $images = [];
+            $images[] = 'images/plan/' . $model->plan_id . '/' . $model->plan->img;
+            if ($model->object->logo) {
+                $images[] = 'images/object/' . $model->object->logo;
+            }
+            if ($imgs = $model->building->img) {
+                foreach (explode(';', $imgs) as $img) {
+                    $images[] = 'images/building/' . $model->object_id . '/' . $img;
+                }
+            }
+            if ($imgs = $model->object->img) {
+                foreach (explode(';', $imgs) as $img) {
+                    $images[] = 'images/object/' . $model->object_id . '/' . $img;
+                }
+            }
+            return $images;
         };
         $fields['is_ready'] = function ($model) {
             return $model->building->is_ready;

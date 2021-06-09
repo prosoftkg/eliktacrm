@@ -39,17 +39,21 @@ class ApartmentSearch extends Apartment
     }
 
     /**
-     * Creates data provider instance with search query applied
+     * Creates search query
      *
      * @param array $params
      *
-     * @return ActiveDataProvider
+     * @return ActiveQuery
      */
-    public function search($params)
+    public static function myQuery($params, $joinBuilding = false)
     {
         $query = Apartment::find();
         //$query->joinWith('object', true, 'INNER JOIN');
-        $query->joinWith(['object', 'plan'], true, 'INNER JOIN');
+        $joins = ['object', 'plan'];
+        if ($joinBuilding) {
+            $joins[] = 'building';
+        }
+        $query->joinWith($joins, true, 'INNER JOIN');
 
         if (isset($params['id'])) {
             $cls = explode(",", $params['id']);
@@ -181,13 +185,57 @@ class ApartmentSearch extends Apartment
         }
 
 
-        // add conditions that should always apply here
+        //$query->andFilterWhere(['like', 'apartment.room_count', $this->room_count]);
+
+
+        //$query->andFilterWhere(['=', '(object.base_dollar_price * plan.area)', $this->dollar_price]);
+        $query->andFilterWhere(['!=', 'plan_id', 0]);
+        return $query;
+    }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function search($params)
+    {
+        $query = self::myQuery($params);
+
+        $this->load($params);
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'entry_id' => $this->entry_id,
+            'entry_num' => $this->entry_num,
+            'status' => $this->status,
+            'number' => $this->number,
+            'building_id' => $this->building_id,
+            'object.id' => $this->object_id,
+            'plan.room_count' => $this->plan_id,
+            'floor' => $this->floor,
+            'dollar_price' => $this->dollar_price,
+            'plan.area' => $this->area,
+            //'object.base_dollar_price' => $this->getPrice('dollar'),
+        ]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ],
+            ],
         ]);
 
         $dataProvider->sort->attributes = [
+            'id' => [
+                'default' => SORT_DESC,
+                'asc' => ['id' => SORT_ASC],
+                'desc' => ['id' => SORT_DESC],
+            ],
             'title' => [
                 'asc' => ['object.title' => SORT_ASC],
                 'desc' => ['object.title' => SORT_DESC],
@@ -210,35 +258,11 @@ class ApartmentSearch extends Apartment
             ]
         ];
 
-
-        $this->load($params);
-
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }
-
-        //$query->andFilterWhere(['like', 'apartment.room_count', $this->room_count]);
-
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'entry_id' => $this->entry_id,
-            'entry_num' => $this->entry_num,
-            'status' => $this->status,
-            'number' => $this->number,
-            'building_id' => $this->building_id,
-            'object.id' => $this->object_id,
-            'plan.room_count' => $this->plan_id,
-            'floor' => $this->floor,
-            'dollar_price' => $this->dollar_price,
-            'plan.area' => $this->area,
-            //'object.base_dollar_price' => $this->getPrice('dollar'),
-        ]);
-        //$query->andFilterWhere(['=', '(object.base_dollar_price * plan.area)', $this->dollar_price]);
-        $query->andFilterWhere(['!=', 'plan_id', 0]);
-
 
         return $dataProvider;
     }

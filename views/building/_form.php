@@ -18,19 +18,35 @@ use yii\helpers\ArrayHelper;
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     <?php
-    /* if ($model->img) {
-        $img = [Url::base() . '/images/building/' . $model->img];
-    } else
-        $img = false;*/
-    echo $form->field($model, 'file')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*'],
+    $model_name = 'building';
+    $url = Url::to(['site/img-delete', 'id' => $model->id, 'model_name' => $model_name]);
+    $iniImg2 = false;
+    $initialPreviewConfig2 = [];
+    if (!$model->isNewRecord) {
+        if ($model->img && is_dir("images/{$model_name}/" . $model->id)) {
+            $imgs = explode(';', $model->img);
+            foreach ($imgs as $img) {
+                $iniImg2[] = Html::img("@web/images/{$model_name}/" . $model->id . "/s_" . $img, ['class' => 'file-preview-image img-responsive', 'alt' => '']);
+                $initialPreviewConfig2[] = ['width' => '80px', 'url' => $url, 'key' => $img, 'model_name' => $model_name, 'model_id' => $model->id];
+            }
+        }
+    }
+    echo $form->field($model, 'imageFiles[]')->widget(FileInput::class, [
+        'options' => ['accept' => 'image/*', 'multiple' => true],
         'pluginOptions' => [
-            //'initialPreview' => $img,
-            'initialPreviewAsData' => true,
+            'showCaption' => false,
+            'showRemove' => false,
+            'showUpload' => false,
             'overwriteInitial' => false,
-            'maxFileSize' => 2800
-        ]
-    ]); ?>
+            'initialPreview' => $iniImg2,
+            'previewFileType' => 'any',
+            'initialPreviewConfig' => $initialPreviewConfig2,
+        ],
+        'pluginEvents' => [
+            "filesorted" => "imgSorted",
+        ],
+    ]);
+    ?>
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
@@ -58,7 +74,7 @@ use yii\helpers\ArrayHelper;
     ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

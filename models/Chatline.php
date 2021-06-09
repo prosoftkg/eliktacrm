@@ -114,16 +114,20 @@ class Chatline extends \yii\db\ActiveRecord
         $params = [
             'title' => 'Новое сообщение!',
             'body' => StringHelper::truncate($this->text, 100),
-            'user_id' => $this->receiver_id,
+            //'user_id' => $this->receiver_id,
             'params' => [
-                'chat_id' => $this->chat_id, 'sender_id' => $this->sender_id, 'text' => $this->text
+                'chat_id' => $this->chat_id,
+                'sender_id' => $this->sender_id,
+                'text' => $this->text,
+                'link' => $this->chat->subject_link,
+                'subject' => $this->chat->subject
             ],
         ];
-        // $notif_id=Offer::createNotif($params);
-        /* $token_rows = $dao->createCommand("SELECT * FROM fcm_token WHERE user_id='{$this->receiver_id}'")->queryAll();
+        //$notif_id=User::createNotif($params);
+        $token_rows = $dao->createCommand("SELECT * FROM fcm_token WHERE user_id='{$this->receiver_id}' AND allowed=1 AND active_chat_id<>'{$this->chat_id}'")->queryAll();
         foreach ($token_rows as $tokenRow) {
-            Offer::pushNotification($tokenRow, $params, 0);
-        } */
+            User::pushNotification($tokenRow['token'], $params);
+        }
 
         $time = time();
         $dao->createCommand("UPDATE chat SET `updated_at`='{$time}' WHERE id='{$this->chat_id}'")->execute();

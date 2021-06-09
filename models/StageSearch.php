@@ -2,28 +2,28 @@
 
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use app\models\Stage;
 
 /**
- * ChatSearch represents the model behind the search form about `common\models\Chat`.
+ * StageSearch represents the model behind the search form of `app\models\Stage`.
  */
-class ChatSearch extends Chat
+class StageSearch extends Stage
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'sender_id', 'receiver_id'], 'integer'],
-            [['text', 'created_at', 'subject'], 'safe'],
+            [['id', 'date_stage', 'building_id'], 'integer'],
+            [['img', 'description'], 'safe'],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -40,17 +40,12 @@ class ChatSearch extends Chat
      */
     public function search($params)
     {
-        $query = Chat::find();
-        $user_id = Yii::$app->user->id;
-        $query->where(['OR', 'sender_id=' . $user_id, 'receiver_id=' . $user_id]);
+        $query = Stage::find();
+
+        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ],
-            ],
         ]);
 
         $this->load($params);
@@ -61,17 +56,15 @@ class ChatSearch extends Chat
             return $dataProvider;
         }
 
-        if (!empty($params['archive'])) {
-            $query->andFilterWhere(['archive' => $params['archive']]);
-        }
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'sender_id' => $this->sender_id,
-            'receiver_id' => $this->receiver_id,
-            'created_at' => $this->created_at,
+            'date_stage' => $this->date_stage,
+            'building_id' => $this->building_id,
         ]);
 
-        $query->andFilterWhere(['like', 'subject', $this->subject]);
+        $query->andFilterWhere(['like', 'img', $this->img])
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

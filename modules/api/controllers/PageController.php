@@ -46,19 +46,49 @@ class PageController extends BaseController
                 return ['error' => $user->errors];
             }
         }
+
+        $allowed = $this->saveFcm($user->id, $post);
         return [
             'id' => $user->id,
             'name' => $user->profile->name,
             'auth_key' => $user->auth_key,
+            'allow_push' => $allowed
         ];
+    }
+
+    protected function saveFcm($user_id, $post, $shouldDelete = true)
+    {
+        if (!empty($post['fcm_token']) && !empty($post['device_id'])) {
+            $fcm_token = $post['fcm_token'];
+            $device_id = $post['device_id'];
+            $dao = Yii::$app->db;
+            $sql = "SELECT * FROM `fcm_token` WHERE user_id={$user_id} AND device_id='{$device_id}' AND token='{$fcm_token}'";
+            $row = $dao->createCommand($sql)->queryOne();
+            if (!$row) {
+                if ($shouldDelete) {
+                    //delete prev
+                    $dao->createCommand()->delete('fcm_token', ['user_id' => $user_id, 'device_id' => $device_id])->execute();
+                }
+                $dao->createCommand()->insert('fcm_token', ['user_id' => $user_id, 'device_id' => $device_id, 'token' => $fcm_token, 'allowed' => 1, 'created_at' => time()])->execute();
+            } else {
+                return $row['allowed'];
+            }
+        }
+        return 1;
     }
 
     public function actionEdit()
     {
+        $user_id = Yii::$app->user->id;
         $post = Yii::$app->request->post();
         $dao = Yii::$app->db;
-        $command = $dao->createCommand()->update('profile', ['name' => $post['name']], ['user_id' => Yii::$app->user->id]);
-        if ($command->execute()) {
+        if (isset($post['name'])) {
+            $command = $dao->createCommand()->update('profile', ['name' => $post['name']], ['user_id' => $user_id]);
+        } else if (isset($post['allow_push'])) {
+            $command = $dao->createCommand()->update('fcm_token', ['allowed' => $post['allow_push']], ['user_id' => $user_id]);
+            $this->saveFcm($user_id, $post, false);
+        }
+        if (isset($command) && $command->execute()) {
             return true;
         }
         return false;

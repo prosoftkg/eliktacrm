@@ -27,9 +27,11 @@ $this->params['breadcrumbs'][] = [
 ];
 ?>
 <div class="object-view">
-
-
-    <?= Html::img(Url::base() . '/images/object/' . $model->logo, ['class' => 'object_img']); ?>
+    <?php
+    if ($model->img) {
+        echo Html::img($model->getMainImg('object', false, false), ['class' => 'object_img']);
+    }
+    ?>
 
     <div class="right-view">
 
@@ -56,7 +58,12 @@ $this->params['breadcrumbs'][] = [
         foreach ($model->building as $building) : ?>
             <div class="building-block">
                 <?= Html::a($building->title, ['/building/view', 'id' => $building->id], ['class' => 'building-title']); ?>
-                <?= Html::a(Html::img(Url::base() . '/images/building/s-' . $building->img, ['class' => 'portrait1']), ['/building/view', 'id' => $building->id]); ?>
+                <?php
+                if ($building->img) {
+                    $img = Html::img($building->getMainImg('building', true, false), ['class' => 'portrait1']);
+                    echo Html::a($img, ['/building/view', 'id' => $building->id]);
+                }
+                ?>
                 <div class="wrap_nums">
                     <div class="lower_part">
                         <?php

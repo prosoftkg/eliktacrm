@@ -3,27 +3,40 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\file\FileInput;
-use yii\web\UploadedFile;
-use app\models\Objects;
-use vova07\imperavi\Widget;
 use yii\helpers\Url;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Object */
+/* @var $model app\models\Stage */
 /* @var $form yii\widgets\ActiveForm */
+
+if ($model->isNewRecord) {
+    $model->date_stage = date('Y-m-d');
+    $model->building_id = Yii::$app->request->get('bid');
+} else {
+    $model->date_stage = date('Y-m-d', $model->date_stage);
+}
 ?>
 
-<div class="object-form">
+<div class="stage-form">
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
-
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
-    <?php /* echo $form->field($model, 'file')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*'],
-    ]); */ ?>
+    <?= $form->errorSummary($model) ?>
+    <div class="form-group">
+        <?php
+        echo '<label class="control-label">Дата</label>';
+        echo DatePicker::widget([
+            'model' => $model,
+            'attribute' => 'date_stage',
+            'pluginOptions' => [
+                'autoclose' => true,
+                'language' => 'ru',
+                'format' => 'yyyy-mm-dd'
+            ]
+        ]); ?>
+    </div>
     <?php
-    $model_name = 'object';
+    $model_name = 'stage';
     $url = Url::to(['site/img-delete', 'id' => $model->id, 'model_name' => $model_name]);
     $iniImg2 = false;
     $initialPreviewConfig2 = [];
@@ -53,40 +66,11 @@ use yii\helpers\Url;
     ]);
     ?>
 
-    <?= $form->field($model, 'base_dollar_price')->textInput() ?>
-
-    <?= $form->field($model, 'base_som_price')->textInput() ?>
-
-    <?php
-    echo $form->field($model, 'city')
-        ->dropDownList(
-            Objects::$cities // Flat array ('id'=>'label')
-            //['prompt' => ''] // options
-        ); ?>
-    <label for='form_map' class="form-label">Показать на карте</label>
-    <div id="form_map"></div>
-    <?php
-    echo $form->field($model, 'description')->widget(Widget::className(), [
-        'settings' => [
-            'lang' => 'ru',
-            'minHeight' => 200,
-            'plugins' => [
-                'clips',
-                'fullscreen'
-            ]
-        ]
-    ]);
-
-    ?>
-    <?= $form->field($model, 'lat')->hiddenInput()->label(false) ?>
-    <?= $form->field($model, 'lng')->hiddenInput()->label(false) ?>
-
-    <?php
-    /* if ($model->isNewRecord)
-        echo $form->field($model, 'company_id')->hiddenInput(['value' => $company])->label(false); */ ?>
+    <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
+    <?= $form->field($model, 'building_id')->hiddenInput()->label(false); ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Добавить') : Yii::t('app', 'Сохранить'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

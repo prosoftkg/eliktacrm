@@ -76,4 +76,33 @@ class User extends BaseUser
 
         return null;
     }
+
+    public static function pushNotification($token, $params)
+    {
+        $fcm_server_key = 'AAAAkGfPZwQ:APA91bF7kzDYW-kVVnTJDCazMhaP4pMc8ZVo-BmE_JLpQZTBE8R_0hmoKDvq8sRZ3z4pOoSYvWWqrEwWJ6OFvwFKLFhhdGm_bMh8-C-ko4jfty1DZvlbESkmU7SSeeiT94y0FXH2s7db';
+
+        $data = ["click_action" => "FLUTTER_NOTIFICATION_CLICK"];
+        if (!empty($params['params'])) {
+            $data = array_merge($data, $params['params']);
+        }
+        $fields = [
+            'notification'     => ['body' => $params['body'], 'title' => $params['title'], 'sound' => 'default'],
+            'priority' => 'high',
+            'data' => $data,
+            'to' => $token
+        ];
+
+
+        $headers = ['Authorization: key=' . $fcm_server_key, 'Content-Type: application/json'];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+        $result = curl_exec($ch);
+        curl_close($ch);
+    }
 }

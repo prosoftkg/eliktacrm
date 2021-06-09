@@ -166,6 +166,7 @@ $('document').ready(function () {
      });*/
 
     $("body").on("click", ".plan-select", function () {
+        console.log('planSelect yoba');
         var current = $(this).parent();
         global_plan = $(this).attr('id');
         current.siblings().removeClass('plan-selected');

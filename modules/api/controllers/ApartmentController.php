@@ -43,12 +43,23 @@ class ApartmentController extends BaseController
         foreach ($similars as $sim) {
             $similar[] = ['id' => $sim->id, 'img' => 'images/plan/' . $sim->plan_id . '/' . $sim->plan->img];
         } */
+        /*         $stage_images = [];
+        if ($stages = $model->building->stages) {
+            $last_date = 0;
+            foreach ($stages as $stage) {
+                if ($stage->date_stage > $last_date) {
+                    $last_date = $stage->date_stage;
+                }
+                $stage_images = array_merge($stage_images, explode(';', $stage->img));
+            }
+        } */
         return [
             'id' => $model->id,
             'object_description' => $model->object->description,
             'company_info' => $model->object->company->name,
             'rooms_info' => unserialize($model->plan->rooms),
-            'similars' => $similars
+            'similars' => $similars,
+            'stages' => $model->building->stages
         ];
     }
 
@@ -56,6 +67,32 @@ class ApartmentController extends BaseController
     {
         $searchModel = new ApartmentSearch();
         return $searchModel->search(Yii::$app->request->queryParams)->getTotalCount();
+    }
+    public function actionMapIndex()
+    {
+        $query = ApartmentSearch::myQuery(Yii::$app->request->queryParams, true);
+        $rows = $query->asArray()->all();
+        //return $rows;
+        $list = [];
+        foreach ($rows as $row) {
+            $obj = $row['object'];
+            if (!isset($list[$obj['id']])) {
+                $list[$obj['id']] = [
+                    'id' => (int)$obj['id'],
+                    'title' => $obj['title'],
+                    'due' => $row['building']['due_quarter'] . ' квартал ' . $row['building']['due_year'] . ' г.',
+                    'price' => (int)$obj['base_dollar_price'],
+                    'lat' => (float)$obj['lat'],
+                    'lng' => (float)$obj['lng'],
+                ];
+            }
+        }
+        return array_values($list);
+    }
+    public function actionMapApts()
+    {
+        $query = ApartmentSearch::myQuery(Yii::$app->request->queryParams);
+        return $query->all();
     }
     public function actionCompanies()
     {

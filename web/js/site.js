@@ -123,3 +123,18 @@ let iniMap = function () {
     // Append the 'script' element to 'head'
     document.head.appendChild(script);
 }
+
+function imgSorted(e, params) {
+    if (params.oldIndex !== params.newIndex && params.stack.length) {
+        //console.log(params);
+        $.ajax({
+            type: 'POST',
+            data: { model_id: params.stack[0].model_id, model_name: params.stack[0].model_name, stack: params.stack, _csrf: yii.getCsrfToken() },
+            url: '/site/img-sort',
+            //beforeSend: function () {},
+            success: function (data) {
+                //console.log(data);
+            }
+        });
+    }
+}

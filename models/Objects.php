@@ -24,8 +24,9 @@ use Imagine\Image\Point;
  * @property integer $company_id
  * @property float $lat
  * @property float $lng
+ * @property string $img
  */
-class Objects extends \yii\db\ActiveRecord
+class Objects extends MyModel
 {
     public $file;
     const CITY_BISHKEK = "Бишкек";
@@ -45,14 +46,39 @@ class Objects extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
+        $rules = parent::rules();
+        $rules = array_merge($rules, [
             [['title', 'base_dollar_price', 'base_som_price', 'city', 'description'], 'required'],
             [['base_dollar_price', 'base_som_price', 'lat', 'lng'], 'number'],
             [['file'], 'file'],
             [['company_id'], 'integer'],
-            [['title', 'logo', 'city'], 'string', 'max' => 255],
+            [['title', 'logo', 'city', 'img'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 500],
-        ];
+        ]);
+        return $rules;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        $labels = parent::attributeLabels();
+        $labels = array_merge($labels, [
+            'id' => Yii::t('app', 'ID'),
+            'title' => Yii::t('app', 'Название объекта'),
+            'logo' => Yii::t('app', 'Логотип'),
+            'base_dollar_price' => Yii::t('app', 'Цена в долларах (м²)'),
+            'base_som_price' => Yii::t('app', 'Цена в сомах (м²)'),
+            'city' => Yii::t('app', 'Город'),
+            'description' => Yii::t('app', 'Описание'),
+            'company_id' => Yii::t('app', 'Компания'),
+            'apartment_id' => Yii::t('app', 'Сделка'),
+            'lat' => 'Широта',
+            'lng' => 'Долгота',
+            'file' => 'Фотографии',
+        ]);
+        return $labels;
     }
 
     public function getCompany()
@@ -68,27 +94,6 @@ class Objects extends \yii\db\ActiveRecord
     public function getApartments()
     {
         return $this->hasMany(Apartment::className(), ['object_id' => 'id']);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'title' => Yii::t('app', 'Название объекта'),
-            'logo' => Yii::t('app', 'Логотип'),
-            'base_dollar_price' => Yii::t('app', 'Цена в долларах'),
-            'base_som_price' => Yii::t('app', 'Цена в сомах'),
-            'city' => Yii::t('app', 'Город'),
-            'description' => Yii::t('app', 'Описание'),
-            'company_id' => Yii::t('app', 'Компания'),
-            'apartment_id' => Yii::t('app', 'Сделка'),
-            'lat' => 'Широта',
-            'lng' => 'Долгота',
-            'file' => 'Фотографии',
-        ];
     }
 
     public function beforeValidate()
@@ -110,6 +115,7 @@ class Objects extends \yii\db\ActiveRecord
 
     public function afterSave($insert, $changedAttributes)
     {
+        parent::afterSave($insert, $changedAttributes);
         if ($this->file) {
             $imageName = $this->file->baseName . '.' . $this->file->extension;
             $path = Yii::getAlias("@webroot/images/object");

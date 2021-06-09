@@ -3,21 +3,16 @@
 use yii\db\Migration;
 
 /**
- * Class m210421_121039_update1
+ * Class m210531_082607_update2
  */
-class m210421_121039_update1 extends Migration
+class m210531_082607_update2 extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->addColumn('apartment', 'updated_at', $this->integer());
-        $this->createIndex(
-            'idx-apt-upd',
-            'apartment',
-            'updated_at'
-        );
+        $this->addColumn('object', 'img', $this->string(255));
     }
 
     /**
@@ -25,7 +20,7 @@ class m210421_121039_update1 extends Migration
      */
     public function safeDown()
     {
-        echo "m210421_121039_update1 cannot be reverted.\n";
+        echo "m210531_082607_update2 cannot be reverted.\n";
 
         return false;
     }
@@ -39,7 +34,7 @@ class m210421_121039_update1 extends Migration
 
     public function down()
     {
-        echo "m210421_121039_update1 cannot be reverted.\n";
+        echo "m210531_082607_update2 cannot be reverted.\n";
 
         return false;
     }
