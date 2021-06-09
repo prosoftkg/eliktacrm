@@ -218,4 +218,9 @@ class SiteController extends Controller
     {
         $this->testNotif();
     }
+
+    public function actionPrivacy()
+    {
+        return $this->render('privacy');
+    }
 }
